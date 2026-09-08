@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 
 from __future__ import annotations
@@ -6,204 +5,316 @@ from __future__ import annotations
 import json
 import socket
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
 
+
+# ============================================================
+# VPNBook OpenVPN updater
+# ============================================================
 
 VPNBOOK_API = "https://www.vpnbook.com/api/openvpn"
-VPNBOOK_PAGE = "https://www.vpnbook.com/freevpn/openvpn"
 
 OUTPUT_DIR = Path("output/openvpn")
 SERVERS_JSON = OUTPUT_DIR / "servers.json"
 
 
+# ------------------------------------------------------------
+# VPNBook servers
+#
+# France Server 2 is currently inconsistent between VPNBook
+# pages:
+#
+# Homepage      -> fr231
+# OpenVPN page  -> fr2311
+#
+# Therefore both are used as aliases and the first resolvable
+# hostname is selected.
+# ------------------------------------------------------------
+
 SERVERS = [
     {
         "id": 1,
         "name": "US Server 1",
-        "host": "us16.vpnbook.com",
+        "hosts": ["us16.vpnbook.com"],
         "country": "United States",
         "country_code": "US",
     },
     {
         "id": 2,
         "name": "US Server 2",
-        "host": "us178.vpnbook.com",
+        "hosts": ["us178.vpnbook.com"],
         "country": "United States",
         "country_code": "US",
     },
     {
         "id": 3,
         "name": "Canada Server 1",
-        "host": "ca149.vpnbook.com",
+        "hosts": ["ca149.vpnbook.com"],
         "country": "Canada",
         "country_code": "CA",
     },
     {
         "id": 4,
         "name": "Canada Server 2",
-        "host": "ca196.vpnbook.com",
+        "hosts": ["ca196.vpnbook.com"],
         "country": "Canada",
         "country_code": "CA",
     },
     {
         "id": 5,
         "name": "UK Server 1",
-        "host": "uk205.vpnbook.com",
+        "hosts": ["uk205.vpnbook.com"],
         "country": "United Kingdom",
         "country_code": "GB",
     },
     {
         "id": 6,
         "name": "UK Server 2",
-        "host": "uk68.vpnbook.com",
+        "hosts": ["uk68.vpnbook.com"],
         "country": "United Kingdom",
         "country_code": "GB",
     },
     {
         "id": 7,
         "name": "Germany Server 1",
-        "host": "de20.vpnbook.com",
+        "hosts": ["de20.vpnbook.com"],
         "country": "Germany",
         "country_code": "DE",
     },
     {
         "id": 8,
         "name": "Germany Server 2",
-        "host": "de220.vpnbook.com",
+        "hosts": ["de220.vpnbook.com"],
         "country": "Germany",
         "country_code": "DE",
     },
     {
         "id": 9,
         "name": "France Server 1",
-        "host": "fr200.vpnbook.com",
+        "hosts": ["fr200.vpnbook.com"],
         "country": "France",
         "country_code": "FR",
     },
     {
         "id": 10,
         "name": "France Server 2",
-        "host": "fr2311.vpnbook.com",
+        "hosts": [
+            "fr231.vpnbook.com",
+            "fr2311.vpnbook.com",
+        ],
         "country": "France",
         "country_code": "FR",
     },
 ]
 
 
+# ------------------------------------------------------------
+# VPNBook OpenVPN protocols
+#
+# Order:
+#   UDP 25000 = usually best speed
+#   UDP 53    = useful on restricted networks
+#   TCP 443   = firewall friendly
+#   TCP 80    = fallback
+# ------------------------------------------------------------
+
 PROTOCOLS = [
     {
-        "name": "udp25000",
-        "protocol": "udp",
+        "id": "udp25000",
+        "transport": "udp",
         "port": 25000,
-        "label": "UDP 25000",
     },
     {
-        "name": "udp53",
-        "protocol": "udp",
+        "id": "udp53",
+        "transport": "udp",
         "port": 53,
-        "label": "UDP 53",
     },
     {
-        "name": "tcp443",
-        "protocol": "tcp",
+        "id": "tcp443",
+        "transport": "tcp",
         "port": 443,
-        "label": "TCP 443",
     },
     {
-        "name": "tcp80",
-        "protocol": "tcp",
+        "id": "tcp80",
+        "transport": "tcp",
         "port": 80,
-        "label": "TCP 80",
     },
 ]
 
 
-def now_utc() -> str:
-    return (
-        datetime.now(timezone.utc)
-        .replace(microsecond=0)
-        .isoformat()
-        .replace("+00:00", "Z")
-    )
+USER_AGENT = (
+    "Mozilla/5.0 "
+    "(compatible; VPNBookUpdater/1.0; +https://www.vpnbook.com/)"
+)
 
 
-def resolve_ip(host: str) -> str:
+# ============================================================
+# Helpers
+# ============================================================
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).replace(
+        microsecond=0
+    ).isoformat().replace("+00:00", "Z")
+
+
+def resolve_ip(host: str) -> str | None:
     """
-    Resolve VPNBook hostname to IPv4.
-    The VPNBook API requires the server IP.
+    Resolve hostname to IPv4.
+
+    Returns None instead of raising because one dead server
+    must not stop the whole updater.
     """
 
     try:
-        return socket.gethostbyname(host)
+        ip = socket.gethostbyname(host)
+        return ip
+
     except socket.gaierror as exc:
-        raise RuntimeError(
-            f"DNS resolution failed for {host}: {exc}"
-        ) from exc
+        print(
+            f"WARNING: DNS resolution failed for {host}: {exc}"
+        )
+        return None
+
+    except Exception as exc:
+        print(
+            f"WARNING: Could not resolve {host}: {exc}"
+        )
+        return None
 
 
-def download_ovpn(
+def download_bytes(url: str, timeout: int = 30) -> bytes:
+    """
+    Download data using urllib.
+    """
+
+    request = Request(
+        url,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "*/*",
+        },
+    )
+
+    with urlopen(request, timeout=timeout) as response:
+        return response.read()
+
+
+def download_config(
     host: str,
-    protocol_name: str,
     ip: str,
+    protocol: dict,
     destination: Path,
-) -> None:
+) -> bool:
+    """
+    Download one OpenVPN configuration from VPNBook API.
+    """
+
+    protocol_id = protocol["id"]
 
     query = urlencode(
         {
             "hostname": host,
-            "protocol": protocol_name,
+            "protocol": protocol_id,
             "ip": ip,
         }
     )
 
     url = f"{VPNBOOK_API}?{query}"
 
-    print(f"Downloading {host} {protocol_name}")
-
-    request = Request(
-        url,
-        headers={
-            "User-Agent": "freeserver-vpnbook-updater/1.0",
-            "Accept": "*/*",
-        },
+    print(
+        f"Downloading {host} {protocol_id}"
     )
 
-    with urlopen(request, timeout=60) as response:
-        data = response.read()
+    try:
+        data = download_bytes(url)
+
+    except HTTPError as exc:
+        print(
+            f"  HTTP ERROR {exc.code}: {host} {protocol_id}"
+        )
+        return False
+
+    except URLError as exc:
+        print(
+            f"  URL ERROR: {host} {protocol_id}: {exc.reason}"
+        )
+        return False
+
+    except TimeoutError:
+        print(
+            f"  TIMEOUT: {host} {protocol_id}"
+        )
+        return False
+
+    except Exception as exc:
+        print(
+            f"  ERROR: {host} {protocol_id}: {exc}"
+        )
+        return False
 
     if not data:
-        raise RuntimeError(
-            f"Empty response from VPNBook API: {url}"
+        print(
+            f"  EMPTY RESPONSE: {host} {protocol_id}"
         )
+        return False
 
-    # Basic validation.
-    text_start = data[:4096].decode(
-        "utf-8",
-        errors="ignore",
-    ).lower()
+    # Decode for validation.
+    try:
+        text = data.decode(
+            "utf-8",
+            errors="ignore",
+        )
+    except Exception:
+        text = ""
 
+    # VPNBook should return an OpenVPN profile.
+    #
+    # Do not require every possible OpenVPN directive because
+    # VPNBook may change its config formatting.
     if (
-        "client" not in text_start
-        and "dev tun" not in text_start
-        and "remote " not in text_start
+        "client" not in text
+        and "remote " not in text
+        and "<ca>" not in text
     ):
-        raise RuntimeError(
-            f"VPNBook API returned unexpected data for "
-            f"{host}/{protocol_name}"
+        print(
+            f"  INVALID OpenVPN CONFIG: "
+            f"{host} {protocol_id}"
+        )
+        return False
+
+    try:
+        destination.parent.mkdir(
+            parents=True,
+            exist_ok=True,
         )
 
-    destination.write_bytes(data)
+        destination.write_bytes(data)
+
+    except Exception as exc:
+        print(
+            f"  FILE WRITE ERROR: {destination}: {exc}"
+        )
+        return False
+
+    print(
+        f"  OK -> {destination}"
+    )
+
+    return True
 
 
 def clean_old_configs() -> None:
     """
-    Remove old generated .ovpn files.
+    Remove old .ovpn files.
 
-    This prevents obsolete server/protocol files from
-    remaining after VPNBook changes.
+    This prevents stale configurations from remaining when
+    VPNBook removes or changes a server.
     """
 
     OUTPUT_DIR.mkdir(
@@ -212,139 +323,48 @@ def clean_old_configs() -> None:
     )
 
     for file in OUTPUT_DIR.glob("*.ovpn"):
-        file.unlink()
-
-
-def build_server_data() -> list[dict]:
-    result = []
-
-    for server in SERVERS:
-
-        ip = resolve_ip(server["host"])
-
-        print(
-            f"{server['host']} -> {ip}"
-        )
-
-        protocols = []
-
-        for protocol in PROTOCOLS:
-
-            filename = (
-                f"{server['host']}-"
-                f"{protocol['name']}.ovpn"
+        try:
+            file.unlink()
+            print(f"Removed old config: {file.name}")
+        except Exception as exc:
+            print(
+                f"WARNING: Could not remove "
+                f"{file}: {exc}"
             )
 
-            destination = OUTPUT_DIR / filename
 
-            try:
-                download_ovpn(
-                    host=server["host"],
-                    protocol_name=protocol["name"],
-                    ip=ip,
-                    destination=destination,
-                )
+def select_resolvable_host(
+    hosts: list[str],
+) -> tuple[str, str] | None:
+    """
+    Try hostname aliases in order.
 
-                protocols.append(
-                    {
-                        "name": protocol["name"],
-                        "protocol": protocol["protocol"],
-                        "port": protocol["port"],
-                        "label": protocol["label"],
-                        "file": filename,
-                        "available": True,
-                    }
-                )
+    Example:
+        fr231.vpnbook.com
+        fr2311.vpnbook.com
 
-            except Exception as exc:
+    The first hostname that resolves is selected.
+    """
 
-                print(
-                    f"WARNING: "
-                    f"{server['host']} "
-                    f"{protocol['name']} "
-                    f"failed: {exc}"
-                )
+    for host in hosts:
+        print(f"Resolving {host}...")
 
-                protocols.append(
-                    {
-                        "name": protocol["name"],
-                        "protocol": protocol["protocol"],
-                        "port": protocol["port"],
-                        "label": protocol["label"],
-                        "file": filename,
-                        "available": False,
-                    }
-                )
+        ip = resolve_ip(host)
 
-        result.append(
-            {
-                "id": server["id"],
-                "name": server["name"],
-                "host": server["host"],
-                "ip": ip,
-                "country": server["country"],
-                "country_code": server["country_code"],
-                "type": "openvpn",
+        if ip:
+            print(
+                f"  {host} -> {ip}"
+            )
+            return host, ip
 
-                # App will replace these with live values.
-                "status": "unknown",
-                "ping": None,
-                "download_speed": None,
-                "upload_speed": None,
-
-                "protocols": protocols,
-            }
-        )
-
-    return result
+    return None
 
 
-def write_servers_json(servers: list[dict]) -> None:
+# ============================================================
+# Main update
+# ============================================================
 
-    data = {
-        "version": 2,
-        "provider": "VPNBook",
-        "type": "openvpn",
-        "source": VPNBOOK_PAGE,
-        "updated_at": now_utc(),
-
-        # These are intentionally null because
-        # GitHub cannot measure the user's ISP latency.
-        "measurement": {
-            "ping": "client",
-            "speed": "client",
-            "status": "client",
-        },
-
-        "protocols": [
-            {
-                "name": p["name"],
-                "protocol": p["protocol"],
-                "port": p["port"],
-                "label": p["label"],
-            }
-            for p in PROTOCOLS
-        ],
-
-        "servers": servers,
-    }
-
-    SERVERS_JSON.write_text(
-        json.dumps(
-            data,
-            indent=2,
-            ensure_ascii=False,
-        )
-        + "\n",
-        encoding="utf-8",
-    )
-
-
-def main() -> int:
-
-    print("=" * 60)
-    print("VPNBook OpenVPN updater")
-    print("=" * 60)
+def update_servers() -> list[dict]:
 
     OUTPUT_DIR.mkdir(
         parents=True,
@@ -353,33 +373,250 @@ def main() -> int:
 
     clean_old_configs()
 
-    try:
-        servers = build_server_data()
-        write_servers_json(servers)
+    result = []
 
-    except Exception as exc:
+    for server in SERVERS:
+
         print()
-        print(f"FATAL ERROR: {exc}")
-        return 1
+        print(
+            "=" * 60
+        )
+        print(
+            server["name"]
+        )
+        print(
+            "=" * 60
+        )
+
+        selected = select_resolvable_host(
+            server["hosts"]
+        )
+
+        if not selected:
+            print(
+                f"SKIP: {server['name']} "
+                f"(no DNS-resolvable hostname)"
+            )
+            continue
+
+        host, ip = selected
+
+        successful_protocols = []
+
+        for protocol in PROTOCOLS:
+
+            protocol_id = protocol["id"]
+
+            filename = (
+                f"{host}-{protocol_id}.ovpn"
+            )
+
+            destination = (
+                OUTPUT_DIR / filename
+            )
+
+            success = download_config(
+                host=host,
+                ip=ip,
+                protocol=protocol,
+                destination=destination,
+            )
+
+            if success:
+
+                successful_protocols.append(
+                    {
+                        "id": protocol_id,
+                        "transport": protocol[
+                            "transport"
+                        ],
+                        "port": protocol["port"],
+                        "file": filename,
+                        "available": True,
+                    }
+                )
+
+            else:
+
+                # Make sure a partial/stale file does
+                # not remain.
+                try:
+                    if destination.exists():
+                        destination.unlink()
+                except Exception:
+                    pass
+
+        # ----------------------------------------------------
+        # If no protocol works, skip the server.
+        # ----------------------------------------------------
+
+        if not successful_protocols:
+
+            print(
+                f"SKIP: {host} "
+                f"(no working OpenVPN profile)"
+            )
+
+            continue
+
+        # ----------------------------------------------------
+        # Server entry
+        # ----------------------------------------------------
+
+        server_entry = {
+            "id": server["id"],
+            "name": server["name"],
+            "host": host,
+            "ip": ip,
+            "country": server["country"],
+            "country_code": server["country_code"],
+            "type": "openvpn",
+
+            # Client measures these values.
+            "status": "unknown",
+            "ping": None,
+            "download_speed": None,
+            "upload_speed": None,
+
+            "protocols": successful_protocols,
+        }
+
+        result.append(server_entry)
+
+        print(
+            f"ACTIVE: {host} "
+            f"({len(successful_protocols)} protocols)"
+        )
+
+    return result
+
+
+def write_servers_json(
+    servers: list[dict],
+) -> None:
+
+    if not servers:
+        raise RuntimeError(
+            "No working VPNBook OpenVPN servers found."
+        )
+
+    output = {
+        "version": 2,
+        "provider": "VPNBook",
+        "type": "openvpn",
+        "source": "https://www.vpnbook.com/freevpn/openvpn",
+
+        "updated_at": utc_now(),
+
+        "measurement": {
+            "ping": "client",
+            "speed": "client",
+            "status": "client",
+        },
+
+        "protocols": [
+            {
+                "id": "udp25000",
+                "transport": "udp",
+                "port": 25000,
+                "priority": 1,
+            },
+            {
+                "id": "udp53",
+                "transport": "udp",
+                "port": 53,
+                "priority": 2,
+            },
+            {
+                "id": "tcp443",
+                "transport": "tcp",
+                "port": 443,
+                "priority": 3,
+            },
+            {
+                "id": "tcp80",
+                "transport": "tcp",
+                "port": 80,
+                "priority": 4,
+            },
+        ],
+
+        "servers": servers,
+    }
+
+    SERVERS_JSON.write_text(
+        json.dumps(
+            output,
+            indent=2,
+            ensure_ascii=False,
+        ) + "\n",
+        encoding="utf-8",
+    )
 
     print()
-    print("=" * 60)
-    print("Update completed")
-    print("=" * 60)
-
-    available = len(
-        list(OUTPUT_DIR.glob("*.ovpn"))
+    print(
+        f"Wrote {SERVERS_JSON}"
     )
 
     print(
-        f"OpenVPN profiles generated: {available}"
+        f"Active servers: {len(servers)}"
     )
 
-    print(
-        f"servers.json: {SERVERS_JSON}"
-    )
 
-    return 0
+# ============================================================
+# Entry point
+# ============================================================
+
+def main() -> int:
+
+    print("=" * 60)
+    print("VPNBook OpenVPN updater")
+    print("=" * 60)
+
+    try:
+
+        servers = update_servers()
+
+        # At least one server must work.
+        if not servers:
+            raise RuntimeError(
+                "All VPNBook servers failed."
+            )
+
+        write_servers_json(servers)
+
+        print()
+        print("=" * 60)
+        print("UPDATE COMPLETE")
+        print("=" * 60)
+
+        for server in servers:
+            print(
+                f"- {server['host']}: "
+                f"{len(server['protocols'])} protocols"
+            )
+
+        return 0
+
+    except KeyboardInterrupt:
+
+        print(
+            "\nInterrupted."
+        )
+
+        return 130
+
+    except Exception as exc:
+
+        print()
+        print(
+            "FATAL ERROR:"
+        )
+        print(
+            str(exc)
+        )
+
+        return 1
 
 
 if __name__ == "__main__":
