@@ -1,1 +1,140 @@
 
+name: Update VPNBook OpenVPN
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "0 */6 * * *"
+
+  push:
+    paths:
+      - "scripts/openvpn.py"
+      - "scripts/ovpnauth.py"
+      - ".github/workflows/update-vpnbook.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    name: Update VPNBook
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Update VPN credentials
+        run: |
+          python scripts/ovpnauth.py
+
+      - name: Download OpenVPN profiles
+        run: |
+          python scripts/openvpn.py
+
+      - name: Validate output
+        run: |
+          test -f output/openvpn/servers.json
+          test -f output/auth/openvpn.json
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          servers_file = Path(
+              "output/openvpn/servers.json"
+          )
+
+          auth_file = Path(
+              "output/auth/openvpn.json"
+          )
+
+          servers = json.loads(
+              servers_file.read_text()
+          )
+
+          auth = json.loads(
+              auth_file.read_text()
+          )
+
+          assert servers["provider"] == "VPNBook"
+          assert servers["type"] == "openvpn"
+
+          assert len(servers["servers"]) == 10
+
+          assert auth["username"]
+          assert auth["password"]
+
+          print(
+              "servers.json validation: OK"
+          )
+
+          print(
+              "auth validation: OK"
+          )
+          PY
+
+      - name: Show generated files
+        run: |
+          echo "===== SERVER JSON ====="
+          cat output/openvpn/servers.json
+
+          echo
+          echo "===== OVPN FILES ====="
+          find output/openvpn \
+            -maxdepth 1 \
+            -type f \
+            -name "*.ovpn" \
+            -print | sort
+
+          echo
+          echo "===== AUTH ====="
+          python - <<'PY'
+          import json
+
+          data = json.load(
+              open(
+                  "output/auth/openvpn.json"
+              )
+          )
+
+          print(
+              "provider:",
+              data["provider"]
+          )
+
+          print(
+              "username:",
+              data["username"]
+          )
+
+          print(
+              "password: [hidden]"
+          )
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name \
+            "github-actions[bot]"
+
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add output/
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit \
+              -m "Update VPNBook OpenVPN data"
+
+            git push
+          fi
