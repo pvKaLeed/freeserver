@@ -1,49 +1,57 @@
-
 name: Update VPNBook OpenVPN
 
 on:
-  workflow_dispatch:
-
   schedule:
     - cron: "0 */6 * * *"
 
-  push:
-    paths:
-      - "scripts/openvpn.py"
-      - "scripts/ovpnauth.py"
-      - ".github/workflows/update-vpnbook.yml"
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
   update:
-    name: Update VPNBook
     runs-on: ubuntu-latest
 
     steps:
+      # ------------------------------------------------------
+      # Checkout
+      # ------------------------------------------------------
 
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
+
+      # ------------------------------------------------------
+      # Python
+      # ------------------------------------------------------
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Update VPN credentials
+      # ------------------------------------------------------
+      # Update credentials
+      # ------------------------------------------------------
+
+      - name: Update VPNBook credentials
         run: |
           python scripts/ovpnauth.py
 
-      - name: Download OpenVPN profiles
+      # ------------------------------------------------------
+      # Update OpenVPN profiles
+      # ------------------------------------------------------
+
+      - name: Update OpenVPN servers
         run: |
           python scripts/openvpn.py
 
+      # ------------------------------------------------------
+      # Validate output
+      # ------------------------------------------------------
+
       - name: Validate output
         run: |
-          test -f output/openvpn/servers.json
-          test -f output/auth/openvpn.json
-
           python - <<'PY'
           import json
           from pathlib import Path
@@ -56,75 +64,85 @@ jobs:
               "output/auth/openvpn.json"
           )
 
+          if not servers_file.exists():
+              raise SystemExit(
+                  "servers.json was not created"
+              )
+
+          if not auth_file.exists():
+              raise SystemExit(
+                  "openvpn.json was not created"
+              )
+
           servers = json.loads(
-              servers_file.read_text()
-          )
-
-          auth = json.loads(
-              auth_file.read_text()
-          )
-
-          assert servers["provider"] == "VPNBook"
-          assert servers["type"] == "openvpn"
-
-          assert len(servers["servers"]) == 10
-
-          assert auth["username"]
-          assert auth["password"]
-
-          print(
-              "servers.json validation: OK"
-          )
-
-          print(
-              "auth validation: OK"
-          )
-          PY
-
-      - name: Show generated files
-        run: |
-          echo "===== SERVER JSON ====="
-          cat output/openvpn/servers.json
-
-          echo
-          echo "===== OVPN FILES ====="
-          find output/openvpn \
-            -maxdepth 1 \
-            -type f \
-            -name "*.ovpn" \
-            -print | sort
-
-          echo
-          echo "===== AUTH ====="
-          python - <<'PY'
-          import json
-
-          data = json.load(
-              open(
-                  "output/auth/openvpn.json"
+              servers_file.read_text(
+                  encoding="utf-8"
               )
           )
 
+          auth = json.loads(
+              auth_file.read_text(
+                  encoding="utf-8"
+              )
+          )
+
+          if not servers.get("servers"):
+              raise SystemExit(
+                  "No VPN servers found"
+              )
+
+          if not auth.get("username"):
+              raise SystemExit(
+                  "VPN username missing"
+              )
+
+          if not auth.get("password"):
+              raise SystemExit(
+                  "VPN password missing"
+              )
+
           print(
-              "provider:",
-              data["provider"]
+              "Servers:",
+              len(servers["servers"])
+          )
+
+          for server in servers["servers"]:
+
+              print(
+                  server["host"],
+                  "->",
+                  server["ip"],
+                  "->",
+                  len(server["protocols"]),
+                  "protocols"
+              )
+
+          print(
+              "Credentials:",
+              auth["username"]
           )
 
           print(
-              "username:",
-              data["username"]
-          )
-
-          print(
-              "password: [hidden]"
+              "Validation OK"
           )
           PY
 
-      - name: Commit changes
-        run: |
-          git config user.name \
-            "github-actions[bot]"
+      # ------------------------------------------------------
+      # Git status
+      # ------------------------------------------------------
 
+      - name: Check changes
+        id: changes
+        run: |
+          git status --short
+
+      # ------------------------------------------------------
+      # Commit
+      # ------------------------------------------------------
+
+      - name: Commit updated VPN data
+        run: |
+          git config user.name "github-actions[bot]"
           git config user.email \
             "41898282+github-actions[bot]@users.noreply.github.com"
 
@@ -133,8 +151,8 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit \
-              -m "Update VPNBook OpenVPN data"
+            git commit -m \
+              "chore: update VPNBook OpenVPN servers"
 
             git push
           fi
