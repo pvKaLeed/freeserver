@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import html
 import json
 import re
 import sys
@@ -10,34 +11,35 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 
-SOURCE_URL = "https://www.vpnbook.com/freevpn/openvpn"
+VPNBOOK_PAGE = (
+    "https://www.vpnbook.com/freevpn/openvpn"
+)
 
-OUTPUT = Path(
-    "output/auth/openvpn.json"
+OUTPUT_DIR = Path("output/auth")
+
+OUTPUT_FILE = (
+    OUTPUT_DIR / "openvpn.json"
+)
+
+USER_AGENT = (
+    "Mozilla/5.0 "
+    "(compatible; VPNBookAuthUpdater/1.0)"
 )
 
 
-def now_utc() -> str:
-    return (
-        datetime.now(timezone.utc)
-        .replace(microsecond=0)
-        .isoformat()
-        .replace("+00:00", "Z")
-    )
+def utc_now() -> str:
+    return datetime.now(timezone.utc).replace(
+        microsecond=0
+    ).isoformat().replace("+00:00", "Z")
 
 
-def fetch_page() -> str:
+def download_page() -> str:
 
     request = Request(
-        SOURCE_URL,
+        VPNBOOK_PAGE,
         headers={
-            "User-Agent": (
-                "Mozilla/5.0 "
-                "(X11; Linux x86_64) "
-                "AppleWebKit/537.36 "
-                "(KHTML, like Gecko) "
-                "Chrome/131 Safari/537.36"
-            )
+            "User-Agent": USER_AGENT,
+            "Accept": "text/html,*/*",
         },
     )
 
@@ -45,13 +47,28 @@ def fetch_page() -> str:
         request,
         timeout=30,
     ) as response:
+
         return response.read().decode(
             "utf-8",
             errors="ignore",
         )
 
 
-def clean_html(value: str) -> str:
+def strip_html(value: str) -> str:
+
+    value = re.sub(
+        r"<script\b[^>]*>.*?</script>",
+        " ",
+        value,
+        flags=re.I | re.S,
+    )
+
+    value = re.sub(
+        r"<style\b[^>]*>.*?</style>",
+        " ",
+        value,
+        flags=re.I | re.S,
+    )
 
     value = re.sub(
         r"<[^>]+>",
@@ -59,165 +76,144 @@ def clean_html(value: str) -> str:
         value,
     )
 
-    value = value.replace(
-        "&nbsp;",
+    value = html.unescape(value)
+
+    value = re.sub(
+        r"\s+",
         " ",
+        value,
     )
 
-    value = value.replace(
-        "&amp;",
-        "&",
+    return value.strip()
+
+
+def extract_credentials(
+    text: str,
+) -> tuple[str, str]:
+
+    # --------------------------------------------------------
+    # Preferred format:
+    #
+    # Username vpnbook Copy
+    # Password 3ssumf2 Copy
+    # --------------------------------------------------------
+
+    username_match = re.search(
+        r"Username\s+"
+        r"([A-Za-z0-9._-]+)"
+        r"\s+Copy",
+        text,
+        flags=re.I,
     )
 
-    return " ".join(
-        value.split()
-    ).strip()
+    password_match = re.search(
+        r"Password\s+"
+        r"([A-Za-z0-9._-]+)"
+        r"\s+Copy",
+        text,
+        flags=re.I,
+    )
 
+    if username_match and password_match:
 
-def extract_username(html: str) -> str:
-
-    # VPNBook currently uses "vpnbook".
-    # First try to locate it near the Username label.
-
-    patterns = [
-        r"Username.{0,1000}?"
-        r"(?:<code[^>]*>|<strong[^>]*>|>)"
-        r"\s*(vpnbook)\s*"
-        r"(?:</code>|</strong>|<)",
-
-        r"Username.{0,1000}?"
-        r"\b(vpnbook)\b",
-    ]
-
-    for pattern in patterns:
-
-        match = re.search(
-            pattern,
-            html,
-            re.IGNORECASE | re.DOTALL,
+        return (
+            username_match.group(1),
+            password_match.group(1),
         )
 
-        if match:
-            return match.group(1).strip()
+    # --------------------------------------------------------
+    # Fallback
+    # --------------------------------------------------------
 
-    # Safe fallback based on the public VPNBook credential.
-    if re.search(
-        r"\bvpnbook\b",
-        html,
-        re.IGNORECASE,
-    ):
-        return "vpnbook"
-
-    raise RuntimeError(
-        "Could not find VPNBook username."
+    username_match = re.search(
+        r"Username\s+"
+        r"`?([A-Za-z0-9._-]+)`?",
+        text,
+        flags=re.I,
     )
 
+    password_match = re.search(
+        r"Password\s+"
+        r"`?([A-Za-z0-9._-]+)`?",
+        text,
+        flags=re.I,
+    )
 
-def extract_password(html: str) -> str:
-
-    patterns = [
-        # Password followed by a code/strong element.
-        r"Password.{0,1500}?"
-        r"<(?:code|strong)[^>]*>"
-        r"\s*([A-Za-z0-9]+)\s*"
-        r"</(?:code|strong)>",
-
-        # Generic fallback.
-        r"Password.{0,1500}?"
-        r"\b([A-Za-z0-9]{5,32})\b",
-    ]
-
-    for pattern in patterns:
-
-        match = re.search(
-            pattern,
-            html,
-            re.IGNORECASE | re.DOTALL,
+    if not username_match:
+        raise RuntimeError(
+            "Could not find VPNBook username."
         )
 
-        if not match:
-            continue
+    if not password_match:
+        raise RuntimeError(
+            "Could not find VPNBook password."
+        )
 
-        password = match.group(1).strip()
-
-        # Avoid accidentally selecting common words.
-        if password.lower() in {
-            "password",
-            "copy",
-            "updated",
-            "username",
-        }:
-            continue
-
-        return password
-
-    raise RuntimeError(
-        "Could not find VPNBook password."
+    return (
+        username_match.group(1),
+        password_match.group(1),
     )
 
 
 def main() -> int:
 
-    print(
-        "Fetching VPNBook credentials..."
-    )
+    print("=" * 60)
+    print("VPNBook OpenVPN credentials updater")
+    print("=" * 60)
 
     try:
-        html = fetch_page()
 
-        username = extract_username(
-            html
+        raw_html = download_page()
+
+        text = strip_html(
+            raw_html
         )
 
-        password = extract_password(
-            html
+        username, password = (
+            extract_credentials(text)
         )
+
+        OUTPUT_DIR.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+
+        data = {
+            "provider": "VPNBook",
+            "type": "openvpn",
+            "username": username,
+            "password": password,
+            "updated_at": utc_now(),
+            "source": VPNBOOK_PAGE,
+        }
+
+        OUTPUT_FILE.write_text(
+            json.dumps(
+                data,
+                indent=2,
+                ensure_ascii=False,
+            ) + "\n",
+            encoding="utf-8",
+        )
+
+        print(
+            f"Username: {username}"
+        )
+
+        print(
+            f"Credentials written to: "
+            f"{OUTPUT_FILE}"
+        )
+
+        return 0
 
     except Exception as exc:
 
         print(
-            f"ERROR: {exc}"
+            f"FATAL ERROR: {exc}"
         )
 
         return 1
-
-    OUTPUT.parent.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
-
-    data = {
-        "version": 1,
-        "provider": "VPNBook",
-        "username": username,
-        "password": password,
-        "source": SOURCE_URL,
-        "updated_at": now_utc(),
-    }
-
-    OUTPUT.write_text(
-        json.dumps(
-            data,
-            indent=2,
-            ensure_ascii=False,
-        )
-        + "\n",
-        encoding="utf-8",
-    )
-
-    print(
-        "Credentials updated successfully."
-    )
-
-    print(
-        f"Username: {username}"
-    )
-
-    print(
-        "Password: [updated]"
-    )
-
-    return 0
 
 
 if __name__ == "__main__":
