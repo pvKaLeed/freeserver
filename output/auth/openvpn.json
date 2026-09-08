@@ -1,1 +1,8 @@
-
+{
+  "version": 1,
+  "provider": "VPNBook",
+  "username": "vpnbook",
+  "password": "3ssumf2",
+  "source": "https://www.vpnbook.com/freevpn/openvpn",
+  "updated_at": "2026-09-08T03:41:24Z"
+}

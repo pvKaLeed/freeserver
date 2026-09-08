@@ -1,1 +1,470 @@
-
+{
+  "version": 2,
+  "provider": "VPNBook",
+  "type": "openvpn",
+  "source": "https://www.vpnbook.com/freevpn/openvpn",
+  "updated_at": "2026-09-08T03:41:27Z",
+  "measurement": {
+    "ping": "client",
+    "speed": "client",
+    "status": "client"
+  },
+  "protocols": [
+    {
+      "id": "udp25000",
+      "transport": "udp",
+      "port": 25000,
+      "priority": 1
+    },
+    {
+      "id": "udp53",
+      "transport": "udp",
+      "port": 53,
+      "priority": 2
+    },
+    {
+      "id": "tcp443",
+      "transport": "tcp",
+      "port": 443,
+      "priority": 3
+    },
+    {
+      "id": "tcp80",
+      "transport": "tcp",
+      "port": 80,
+      "priority": 4
+    }
+  ],
+  "servers": [
+    {
+      "id": 1,
+      "name": "US Server 1",
+      "host": "us16.vpnbook.com",
+      "ip": "147.135.15.16",
+      "country": "United States",
+      "country_code": "US",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp25000",
+          "transport": "udp",
+          "port": 25000,
+          "file": "us16.vpnbook.com-udp25000.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "us16.vpnbook.com-udp53.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "us16.vpnbook.com-tcp443.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "us16.vpnbook.com-tcp80.ovpn",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "US Server 2",
+      "host": "us178.vpnbook.com",
+      "ip": "147.135.37.178",
+      "country": "United States",
+      "country_code": "US",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp25000",
+          "transport": "udp",
+          "port": 25000,
+          "file": "us178.vpnbook.com-udp25000.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "us178.vpnbook.com-udp53.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "us178.vpnbook.com-tcp443.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "us178.vpnbook.com-tcp80.ovpn",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Canada Server 1",
+      "host": "ca149.vpnbook.com",
+      "ip": "144.217.253.149",
+      "country": "Canada",
+      "country_code": "CA",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp25000",
+          "transport": "udp",
+          "port": 25000,
+          "file": "ca149.vpnbook.com-udp25000.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "ca149.vpnbook.com-udp53.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "ca149.vpnbook.com-tcp443.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "ca149.vpnbook.com-tcp80.ovpn",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Canada Server 2",
+      "host": "ca196.vpnbook.com",
+      "ip": "142.4.216.196",
+      "country": "Canada",
+      "country_code": "CA",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp25000",
+          "transport": "udp",
+          "port": 25000,
+          "file": "ca196.vpnbook.com-udp25000.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "ca196.vpnbook.com-udp53.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "ca196.vpnbook.com-tcp443.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "ca196.vpnbook.com-tcp80.ovpn",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "UK Server 1",
+      "host": "uk205.vpnbook.com",
+      "ip": "145.239.252.205",
+      "country": "United Kingdom",
+      "country_code": "GB",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp25000",
+          "transport": "udp",
+          "port": 25000,
+          "file": "uk205.vpnbook.com-udp25000.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "uk205.vpnbook.com-udp53.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "uk205.vpnbook.com-tcp443.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "uk205.vpnbook.com-tcp80.ovpn",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "UK Server 2",
+      "host": "uk68.vpnbook.com",
+      "ip": "145.239.255.68",
+      "country": "United Kingdom",
+      "country_code": "GB",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp25000",
+          "transport": "udp",
+          "port": 25000,
+          "file": "uk68.vpnbook.com-udp25000.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "uk68.vpnbook.com-udp53.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "uk68.vpnbook.com-tcp443.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "uk68.vpnbook.com-tcp80.ovpn",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Germany Server 1",
+      "host": "de20.vpnbook.com",
+      "ip": "51.75.145.20",
+      "country": "Germany",
+      "country_code": "DE",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp25000",
+          "transport": "udp",
+          "port": 25000,
+          "file": "de20.vpnbook.com-udp25000.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "de20.vpnbook.com-udp53.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "de20.vpnbook.com-tcp443.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "de20.vpnbook.com-tcp80.ovpn",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Germany Server 2",
+      "host": "de220.vpnbook.com",
+      "ip": "51.75.145.220",
+      "country": "Germany",
+      "country_code": "DE",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp25000",
+          "transport": "udp",
+          "port": 25000,
+          "file": "de220.vpnbook.com-udp25000.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "de220.vpnbook.com-udp53.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "de220.vpnbook.com-tcp443.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "de220.vpnbook.com-tcp80.ovpn",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "France Server 1",
+      "host": "fr200.vpnbook.com",
+      "ip": "5.196.64.200",
+      "country": "France",
+      "country_code": "FR",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp25000",
+          "transport": "udp",
+          "port": 25000,
+          "file": "fr200.vpnbook.com-udp25000.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "fr200.vpnbook.com-udp53.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "fr200.vpnbook.com-tcp443.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "fr200.vpnbook.com-tcp80.ovpn",
+          "available": true
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "France Server 2",
+      "host": "fr231.vpnbook.com",
+      "ip": "5.196.64.231",
+      "country": "France",
+      "country_code": "FR",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp25000",
+          "transport": "udp",
+          "port": 25000,
+          "file": "fr231.vpnbook.com-udp25000.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "fr231.vpnbook.com-udp53.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "fr231.vpnbook.com-tcp443.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "fr231.vpnbook.com-tcp80.ovpn",
+          "available": true
+        }
+      ]
+    }
+  ]
+}
