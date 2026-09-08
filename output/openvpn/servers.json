@@ -3,7 +3,7 @@
   "provider": "VPNBook",
   "type": "openvpn",
   "source": "https://www.vpnbook.com/freevpn/openvpn",
-  "updated_at": "2026-09-08T03:41:27Z",
+  "updated_at": "2026-09-08T03:42:06Z",
   "measurement": {
     "ping": "client",
     "speed": "client",
