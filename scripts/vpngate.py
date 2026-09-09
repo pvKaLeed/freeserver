@@ -110,6 +110,17 @@ def safe_base64_decode(data: str) -> str:
 
 
 # ============================================================
+# ✅ PARSE INT (MUST BE DEFINED BEFORE USE)
+# ============================================================
+
+def parse_int(value: str) -> int:
+    try:
+        return int(float(value))
+    except (ValueError, TypeError):
+        return 0
+
+
+# ============================================================
 # HEADER
 # ============================================================
 
@@ -134,15 +145,12 @@ def find_header(lines: list[str]) -> tuple[int, list[str]]:
 
 
 # ============================================================
-# ✅ ACTIVE SERVER CHECK (Multiple methods)
+# ✅ ACTIVE SERVER CHECK
 # ============================================================
 
 def check_server_active(host: str, ip: str = None) -> tuple[bool, int, int]:
-    """
-    Check if server is active using multiple methods.
-    Returns: (is_active, num_sessions, uptime_percentage)
-    """
-    # Method 1: Try TCP connection to port 80
+    """Check if server is active using TCP connection."""
+    # Try port 80 first
     try:
         target = ip if ip else host
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -153,7 +161,7 @@ def check_server_active(host: str, ip: str = None) -> tuple[bool, int, int]:
     except Exception:
         pass
 
-    # Method 2: Try TCP connection to port 443
+    # Try port 443
     try:
         target = ip if ip else host
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -327,8 +335,6 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
     print(f"\n📋 CSV header at line: {header_index + 1}")
     print(f"📋 Columns: {', '.join(headers[:8])}...")
 
-    header_map = {name: index for index, name in enumerate(headers)}
-
     servers = []
     reader = csv.reader(lines[header_index + 1:])
 
@@ -338,23 +344,25 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
         if row[0].strip().startswith("#"):
             continue
 
-        # ✅ Extract data by column index
+        # Extract data by column index
         hostname = row[0].strip()
-        ip = row[1].strip()
-        score = parse_int(row[2].strip())
-        ping = parse_int(row[3].strip())
-        speed = parse_int(row[4].strip())
-        country = row[5].strip()
-        country_code = row[6].strip()
-        num_sessions = parse_int(row[7].strip()) if len(row) > 7 else 0
-        uptime = row[8].strip() if len(row) > 8 else "0%"
-        total_users = parse_int(row[9].strip()) if len(row) > 9 else 0
-        config_base64 = row[14].strip() if len(row) > 14 else ""
-
-        if not hostname or not config_base64:
+        if not hostname:
             continue
 
-        # ✅ Check if server has active sessions OR is reachable
+        ip = row[1].strip() if len(row) > 1 else ""
+        score = parse_int(row[2].strip()) if len(row) > 2 else 0
+        ping = parse_int(row[3].strip()) if len(row) > 3 else 0
+        speed = parse_int(row[4].strip()) if len(row) > 4 else 0
+        country = row[5].strip() if len(row) > 5 else "Unknown"
+        country_code = row[6].strip() if len(row) > 6 else "UN"
+        num_sessions = parse_int(row[7].strip()) if len(row) > 7 else 0
+        uptime = row[8].strip() if len(row) > 8 else "0%"
+        config_base64 = row[14].strip() if len(row) > 14 else ""
+
+        if not config_base64:
+            continue
+
+        # ✅ Check if server has active sessions
         is_active = False
         if num_sessions > 0:
             print(f"  ✅ {hostname}: {num_sessions} active sessions")
@@ -364,7 +372,7 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
             print(f"  🔍 Checking {hostname}...", end=" ")
             is_active, _, _ = check_server_active(hostname, ip)
             if is_active:
-                print("✅ Active (TCP)")
+                print("✅ Active")
             else:
                 print("❌ Inactive")
                 continue
@@ -391,14 +399,14 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
             print(f"  ⚠️ Failed to write {filename}: {exc}")
             continue
 
-        # ✅ Build server entry
+        # Build server entry
         server = {
             "id": len(servers) + 1,
             "name": f"{country} Server {len(servers) + 1}",
             "host": hostname,
             "ip": ip if ip else hostname,
-            "country": country if country else "Unknown",
-            "country_code": country_code if country_code else "UN",
+            "country": country,
+            "country_code": country_code,
             "type": "openvpn",
             "status": "online" if is_active else "unknown",
             "ping": ping if ping > 0 else None,
