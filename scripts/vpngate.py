@@ -9,7 +9,6 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
-import socket
 
 VPNGATE_API = "https://www.vpngate.net/api/iphone/"
 
@@ -44,83 +43,124 @@ def download_csv() -> str:
 
 
 def parse_vpngate_csv(csv_content: str) -> list[dict]:
-    """Parse VPN Gate CSV and extract OpenVPN configs."""
+    """
+    Parse VPN Gate CSV and extract OpenVPN configs.
+    
+    VPN Gate CSV Columns (index):
+    0: Country
+    1: CountryCode  
+    2: Score
+    3: IP
+    4: Hostname
+    5: UDP_443
+    6: UDP_1194
+    7: TCP_443
+    8: TCP_80
+    9: TCP_1194
+    10: UDP_80
+    11: UDP_53
+    12: OpenVPN_ConfigData_Base64
+    """
     
     lines = csv_content.strip().splitlines()
     
     if not lines:
         return []
     
-    # VPN Gate CSV headers - ပထမစာကြောင်းက header ဖြစ်တယ်
-    headers = [
-        "Country", "CountryCode", "Score", "IP", "Hostname",
-        "UDP_443", "UDP_1194", "TCP_443", "TCP_80", "TCP_1194",
-        "UDP_80", "UDP_53", "OpenVPN_ConfigData_Base64"
-    ]
-    
     servers = []
     
     # ✅ ပထမစာကြောင်း (header) ကို ကျော်ပါ
     for line in lines[1:]:
+        if not line.strip():
+            continue
+            
         # CSV row ကို parse လုပ်ပါ
         reader = csv.reader([line])
         row = next(reader, [])
         
         # အနည်းဆုံး 13 columns ရှိရပါမယ်
         if len(row) < 13:
+            print(f"  ⚠️ Skipping row: only {len(row)} columns")
             continue
         
-        # Map row to dict
-        data = dict(zip(headers, row))
+        # ✅ Column index အတိုင်း ယူပါ
+        country = row[0].strip()
+        country_code = row[1].strip()
+        score_str = row[2].strip()
+        ip = row[3].strip()
+        hostname = row[4].strip()
+        udp_443 = row[5].strip()
+        udp_1194 = row[6].strip()
+        tcp_443 = row[7].strip()
+        tcp_80 = row[8].strip()
+        tcp_1194 = row[9].strip()
+        udp_80 = row[10].strip()
+        udp_53 = row[11].strip()
+        config_base64 = row[12].strip()
         
         # Skip if no OpenVPN config
-        if not data.get("OpenVPN_ConfigData_Base64"):
+        if not config_base64:
             continue
         
         # Decode OpenVPN config
         try:
-            config_data = base64.b64decode(
-                data["OpenVPN_ConfigData_Base64"]
-            ).decode("utf-8", errors="ignore")
+            config_data = base64.b64decode(config_base64).decode("utf-8", errors="ignore")
         except Exception as e:
-            print(f"  ⚠️ Failed to decode config: {e}")
+            print(f"  ⚠️ Failed to decode config for {hostname}: {e}")
             continue
         
         # Skip if config is empty
         if not config_data.strip():
             continue
         
-        hostname = data.get("Hostname", "").strip()
-        
-        # Skip if no hostname
+        # ✅ Hostname ကို သေချာယူပါ
         if not hostname:
+            print(f"  ⚠️ Skipping: no hostname")
             continue
         
-        # Generate filename - hostname ကို safe filename အဖြစ် ပြောင်းပါ
+        # ✅ IP ကို သေချာယူပါ (အပြည့်အစုံ)
+        if not ip:
+            print(f"  ⚠️ No IP for {hostname}, using hostname")
+            ip = hostname
+        
+        # Generate filename
         safe_hostname = hostname.replace(".", "_").replace("-", "_")
         filename = f"{safe_hostname}.ovpn"
         
         # Save OVPN file
         ovpn_path = OUTPUT_DIR / filename
+        
+        # ✅ Config ထဲက remote hostname ကို update လုပ်ပါ
+        # VPN Gate config တွေက "remote unknown 1194" ဆိုပြီး ပါတတ်တယ်
+        config_lines = config_data.splitlines()
+        updated_config = []
+        
+        for line in config_lines:
+            if line.startswith("remote ") and "unknown" in line:
+                # Replace with actual hostname
+                updated_config.append(f"remote {hostname} 1194")
+            else:
+                updated_config.append(line)
+        
+        config_data = "\n".join(updated_config)
         ovpn_path.write_text(config_data, encoding="utf-8")
         
         # Determine available protocols
         protocols = []
         
-        protocol_mapping = [
-            ("udp", 53, "udp53"),
-            ("udp", 80, "udp80"),
-            ("udp", 443, "udp443"),
-            ("udp", 1194, "udp1194"),
-            ("tcp", 80, "tcp80"),
-            ("tcp", 443, "tcp443"),
-            ("tcp", 1194, "tcp1194"),
+        # Protocol mapping: (column_data, transport, port, protocol_id)
+        protocol_list = [
+            (udp_443, "udp", 443, "udp443"),
+            (udp_1194, "udp", 1194, "udp1194"),
+            (udp_80, "udp", 80, "udp80"),
+            (udp_53, "udp", 53, "udp53"),
+            (tcp_443, "tcp", 443, "tcp443"),
+            (tcp_80, "tcp", 80, "tcp80"),
+            (tcp_1194, "tcp", 1194, "tcp1194"),
         ]
         
-        for transport, port, proto_id in protocol_mapping:
-            # Check if this protocol has data (non-empty)
-            port_key = f"{transport.upper()}_{port}"
-            if data.get(port_key, "").strip():
+        for data_val, transport, port, proto_id in protocol_list:
+            if data_val and data_val.strip():
                 protocols.append({
                     "id": proto_id,
                     "transport": transport,
@@ -129,36 +169,20 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
                     "available": True,
                 })
         
-        # If no specific protocols found, add generic ones
-        if not protocols:
-            protocols = [
-                {"id": "udp1194", "transport": "udp", "port": 1194, "file": filename, "available": True},
-                {"id": "udp53", "transport": "udp", "port": 53, "file": filename, "available": True},
-                {"id": "tcp443", "transport": "tcp", "port": 443, "file": filename, "available": True},
-                {"id": "tcp80", "transport": "tcp", "port": 80, "file": filename, "available": True},
-            ]
-        
-        # Get IP
-        ip = data.get("IP", "").strip()
-        
-        # Get country
-        country = data.get("Country", "Unknown").strip()
-        country_code = data.get("CountryCode", "UN").strip()
-        
-        # Get score - safely convert to int
-        score_str = data.get("Score", "0").strip()
+        # Score
         try:
-            score = int(score_str)
+            score = int(score_str) if score_str else 0
         except ValueError:
             score = 0
         
-        servers.append({
+        # ✅ မှန်ကန်တဲ့ data တွေကို သိမ်းပါ
+        server_entry = {
             "id": len(servers) + 1,
             "name": f"{country} Server {len(servers) + 1}",
             "host": hostname,
             "ip": ip,
-            "country": country,
-            "country_code": country_code,
+            "country": country if country else "Unknown",
+            "country_code": country_code if country_code else "UN",
             "type": "openvpn",
             "status": "unknown",
             "ping": None,
@@ -166,9 +190,10 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
             "upload_speed": None,
             "protocols": protocols,
             "score": score
-        })
+        }
         
-        print(f"✅ Added {hostname} ({len(protocols)} protocols)")
+        servers.append(server_entry)
+        print(f"✅ {hostname} ({country}) - {len(protocols)} protocols")
     
     return servers
 
@@ -246,7 +271,7 @@ def main() -> int:
         # Sort by score (higher is better)
         servers.sort(key=lambda x: x.get("score", 0), reverse=True)
         
-        # Limit to top 50 servers to keep repo size manageable
+        # Limit to top 50 servers
         if len(servers) > 50:
             print(f"Limiting to top 50 servers (out of {len(servers)})")
             servers = servers[:50]
@@ -259,7 +284,7 @@ def main() -> int:
         print("=" * 60)
         
         for server in servers[:10]:
-            print(f"- {server['host']}: {len(server['protocols'])} protocols")
+            print(f"- {server['host']} ({server['country']}): {len(server['protocols'])} protocols")
         
         return 0
         
