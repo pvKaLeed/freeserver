@@ -47,19 +47,20 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
     Parse VPN Gate CSV and extract OpenVPN configs.
     
     VPN Gate CSV Columns (index):
-    0: Country
-    1: CountryCode  
-    2: Score
-    3: IP
-    4: Hostname
-    5: UDP_443
-    6: UDP_1194
-    7: TCP_443
-    8: TCP_80
-    9: TCP_1194
-    10: UDP_80
-    11: UDP_53
-    12: OpenVPN_ConfigData_Base64
+    0: # (comment/序号)
+    1: Country
+    2: CountryCode
+    3: Score
+    4: IP
+    5: Hostname
+    6: UDP_443
+    7: UDP_1194
+    8: TCP_443
+    9: TCP_80
+    10: TCP_1194
+    11: UDP_80
+    12: UDP_53
+    13: OpenVPN_ConfigData_Base64
     """
     
     lines = csv_content.strip().splitlines()
@@ -78,25 +79,26 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
         reader = csv.reader([line])
         row = next(reader, [])
         
-        # အနည်းဆုံး 13 columns ရှိရပါမယ်
-        if len(row) < 13:
+        # အနည်းဆုံး 14 columns ရှိရပါမယ်
+        if len(row) < 14:
             print(f"  ⚠️ Skipping row: only {len(row)} columns")
             continue
         
         # ✅ Column index အတိုင်း ယူပါ
-        country = row[0].strip()
-        country_code = row[1].strip()
-        score_str = row[2].strip()
-        ip = row[3].strip()
-        hostname = row[4].strip()
-        udp_443 = row[5].strip()
-        udp_1194 = row[6].strip()
-        tcp_443 = row[7].strip()
-        tcp_80 = row[8].strip()
-        tcp_1194 = row[9].strip()
-        udp_80 = row[10].strip()
-        udp_53 = row[11].strip()
-        config_base64 = row[12].strip()
+        # 0: # (comment)
+        country = row[1].strip()
+        country_code = row[2].strip()
+        score_str = row[3].strip()
+        ip = row[4].strip()
+        hostname = row[5].strip()
+        udp_443 = row[6].strip()
+        udp_1194 = row[7].strip()
+        tcp_443 = row[8].strip()
+        tcp_80 = row[9].strip()
+        tcp_1194 = row[10].strip()
+        udp_80 = row[11].strip()
+        udp_53 = row[12].strip()
+        config_base64 = row[13].strip()
         
         # Skip if no OpenVPN config
         if not config_base64:
@@ -118,7 +120,7 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
             print(f"  ⚠️ Skipping: no hostname")
             continue
         
-        # ✅ IP ကို သေချာယူပါ (အပြည့်အစုံ)
+        # ✅ IP ကို သေချာယူပါ
         if not ip:
             print(f"  ⚠️ No IP for {hostname}, using hostname")
             ip = hostname
@@ -131,14 +133,17 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
         ovpn_path = OUTPUT_DIR / filename
         
         # ✅ Config ထဲက remote hostname ကို update လုပ်ပါ
-        # VPN Gate config တွေက "remote unknown 1194" ဆိုပြီး ပါတတ်တယ်
         config_lines = config_data.splitlines()
         updated_config = []
         
         for line in config_lines:
-            if line.startswith("remote ") and "unknown" in line:
-                # Replace with actual hostname
-                updated_config.append(f"remote {hostname} 1194")
+            if line.startswith("remote "):
+                # Replace with actual hostname and keep port
+                parts = line.split()
+                if len(parts) >= 3:
+                    updated_config.append(f"remote {hostname} {parts[2]}")
+                else:
+                    updated_config.append(f"remote {hostname} 1194")
             else:
                 updated_config.append(line)
         
@@ -169,6 +174,15 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
                     "available": True,
                 })
         
+        # If no specific protocols found, add generic ones
+        if not protocols:
+            protocols = [
+                {"id": "udp1194", "transport": "udp", "port": 1194, "file": filename, "available": True},
+                {"id": "udp53", "transport": "udp", "port": 53, "file": filename, "available": True},
+                {"id": "tcp443", "transport": "tcp", "port": 443, "file": filename, "available": True},
+                {"id": "tcp80", "transport": "tcp", "port": 80, "file": filename, "available": True},
+            ]
+        
         # Score
         try:
             score = int(score_str) if score_str else 0
@@ -193,7 +207,10 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
         }
         
         servers.append(server_entry)
+        
+        # ✅ Debug info
         print(f"✅ {hostname} ({country}) - {len(protocols)} protocols")
+        print(f"   IP: {ip}, Country Code: {country_code}")
     
     return servers
 
