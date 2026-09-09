@@ -48,7 +48,10 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
     
     lines = csv_content.strip().splitlines()
     
-    # VPN Gate CSV headers
+    if not lines:
+        return []
+    
+    # VPN Gate CSV headers - ပထမစာကြောင်းက header ဖြစ်တယ်
     headers = [
         "Country", "CountryCode", "Score", "IP", "Hostname",
         "UDP_443", "UDP_1194", "TCP_443", "TCP_80", "TCP_1194",
@@ -57,12 +60,16 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
     
     servers = []
     
-    reader = csv.reader(lines)
-    
-    for row in reader:
-        if len(row) < len(headers):
+    # ✅ ပထမစာကြောင်း (header) ကို ကျော်ပါ
+    for line in lines[1:]:
+        # CSV row ကို parse လုပ်ပါ
+        reader = csv.reader([line])
+        row = next(reader, [])
+        
+        # အနည်းဆုံး 13 columns ရှိရပါမယ်
+        if len(row) < 13:
             continue
-            
+        
         # Map row to dict
         data = dict(zip(headers, row))
         
@@ -75,21 +82,23 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
             config_data = base64.b64decode(
                 data["OpenVPN_ConfigData_Base64"]
             ).decode("utf-8", errors="ignore")
-        except Exception:
+        except Exception as e:
+            print(f"  ⚠️ Failed to decode config: {e}")
             continue
         
         # Skip if config is empty
         if not config_data.strip():
             continue
         
-        hostname = data["Hostname"].strip()
+        hostname = data.get("Hostname", "").strip()
         
         # Skip if no hostname
         if not hostname:
             continue
         
-        # Generate filename
-        filename = f"{hostname}.ovpn"
+        # Generate filename - hostname ကို safe filename အဖြစ် ပြောင်းပါ
+        safe_hostname = hostname.replace(".", "_").replace("-", "_")
+        filename = f"{safe_hostname}.ovpn"
         
         # Save OVPN file
         ovpn_path = OUTPUT_DIR / filename
@@ -136,6 +145,13 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
         country = data.get("Country", "Unknown").strip()
         country_code = data.get("CountryCode", "UN").strip()
         
+        # Get score - safely convert to int
+        score_str = data.get("Score", "0").strip()
+        try:
+            score = int(score_str)
+        except ValueError:
+            score = 0
+        
         servers.append({
             "id": len(servers) + 1,
             "name": f"{country} Server {len(servers) + 1}",
@@ -149,7 +165,7 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
             "download_speed": None,
             "upload_speed": None,
             "protocols": protocols,
-            "score": int(data.get("Score", 0))
+            "score": score
         })
         
         print(f"✅ Added {hostname} ({len(protocols)} protocols)")
@@ -230,6 +246,11 @@ def main() -> int:
         # Sort by score (higher is better)
         servers.sort(key=lambda x: x.get("score", 0), reverse=True)
         
+        # Limit to top 50 servers to keep repo size manageable
+        if len(servers) > 50:
+            print(f"Limiting to top 50 servers (out of {len(servers)})")
+            servers = servers[:50]
+        
         write_servers_json(servers)
         
         print()
@@ -248,6 +269,8 @@ def main() -> int:
     except Exception as exc:
         print()
         print(f"FATAL ERROR: {exc}")
+        import traceback
+        traceback.print_exc()
         return 1
 
 
