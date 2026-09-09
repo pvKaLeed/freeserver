@@ -110,17 +110,6 @@ def safe_base64_decode(data: str) -> str:
 
 
 # ============================================================
-# ✅ PARSE INT (MUST BE DEFINED BEFORE USE)
-# ============================================================
-
-def parse_int(value: str) -> int:
-    try:
-        return int(float(value))
-    except (ValueError, TypeError):
-        return 0
-
-
-# ============================================================
 # HEADER
 # ============================================================
 
@@ -145,34 +134,42 @@ def find_header(lines: list[str]) -> tuple[int, list[str]]:
 
 
 # ============================================================
+# CSV COLUMN
+# ============================================================
+
+def get_column(row: list[str], header_map: dict[str, int], name: str, default: str = "") -> str:
+    index = header_map.get(name)
+    if index is None or index >= len(row):
+        return default
+    return row[index].strip()
+
+
+def parse_int(value: str) -> int:
+    try:
+        return int(float(value))
+    except (ValueError, TypeError):
+        return 0
+
+
+# ============================================================
 # ✅ ACTIVE SERVER CHECK
 # ============================================================
 
-def check_server_active(host: str, ip: str = None) -> tuple[bool, int, int]:
-    """Check if server is active using TCP connection."""
-    # Try port 80 first
+def check_server_active(host: str, ip: str = None) -> bool:
+    """Check if server is reachable via TCP connection."""
     try:
         target = ip if ip else host
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.settimeout(PING_TIMEOUT)
-            result = sock.connect_ex((target, 80))
-            if result == 0:
-                return True, 0, 0
-    except Exception:
-        pass
-
-    # Try port 443
-    try:
-        target = ip if ip else host
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-            sock.settimeout(PING_TIMEOUT)
+            # Try port 443 first (most common)
             result = sock.connect_ex((target, 443))
             if result == 0:
-                return True, 0, 0
+                return True
+            # Try port 80 as fallback
+            result = sock.connect_ex((target, 80))
+            return result == 0
     except Exception:
-        pass
-
-    return False, 0, 0
+        return False
 
 
 # ============================================================
@@ -186,6 +183,75 @@ def safe_filename(hostname: str) -> str:
     if not name:
         name = "server"
     return f"{name}.ovpn"
+
+
+# ============================================================
+# ✅ OVPN ENHANCEMENT (FIX CONFIG)
+# ============================================================
+
+def enhance_ovpn_config(config: str, hostname: str) -> str:
+    """
+    Fix OpenVPN config file for SoftEther VPN:
+    1. Uncomment auth-user-pass
+    2. Fix remote hostname and port
+    3. Add missing proto
+    4. Add verb
+    """
+    lines = config.splitlines()
+    output = []
+    has_auth = False
+    has_verb = False
+    has_remote = False
+    has_proto = False
+
+    for line in lines:
+        stripped = line.strip()
+
+        # ✅ Uncomment auth-user-pass (SoftEther VPN comments it)
+        if stripped.startswith("#auth-user-pass"):
+            output.append("auth-user-pass")
+            has_auth = True
+            continue
+
+        # ✅ Fix remote
+        if stripped.startswith("remote "):
+            parts = stripped.split()
+            if len(parts) >= 2:
+                # Replace with correct hostname and port 443
+                output.append(f"remote {hostname} 443")
+                has_remote = True
+                continue
+
+        # ✅ Fix proto
+        if stripped.startswith("proto "):
+            parts = stripped.split()
+            if len(parts) >= 2:
+                # Keep as is - will be handled by Android app
+                output.append(line)
+                has_proto = True
+                continue
+
+        # Check for existing auth
+        if "auth-user-pass" in stripped.lower() and not stripped.startswith("#"):
+            has_auth = True
+
+        # Check for verb
+        if "verb" in stripped.lower():
+            has_verb = True
+
+        output.append(line)
+
+    # ✅ Add missing directives
+    if not has_remote:
+        output.append(f"remote {hostname} 443")
+    if not has_auth:
+        output.append("auth-user-pass")
+    if not has_verb:
+        output.append("verb 3")
+    if not has_proto:
+        output.append("proto udp")
+
+    return "\n".join(output).strip() + "\n"
 
 
 # ============================================================
@@ -205,6 +271,7 @@ def is_valid_ovpn(config: str) -> bool:
 
 
 def parse_ovpn_protocols(config: str, filename: str) -> list[dict]:
+    """Parse protocol and port from OVPN config."""
     lines = config.splitlines()
     current_proto = None
     protocols = []
@@ -251,35 +318,6 @@ def parse_ovpn_protocols(config: str, filename: str) -> list[dict]:
     return protocols
 
 
-def enhance_ovpn_config(config: str, hostname: str) -> str:
-    lines = config.splitlines()
-    output = []
-    has_auth = False
-    has_verb = False
-
-    for line in lines:
-        stripped = line.strip()
-        if stripped.startswith("remote "):
-            parts = stripped.split()
-            if len(parts) >= 2 and parts[1].lower() in {"unknown", "localhost", "127.0.0.1"}:
-                port = parts[2] if len(parts) >= 3 else "1194"
-                output.append(f"remote {hostname} {port}")
-                continue
-        elif "auth-user-pass" in stripped.lower():
-            has_auth = True
-        elif "verb" in stripped.lower():
-            has_verb = True
-
-        output.append(line)
-
-    if not has_auth:
-        output.append("auth-user-pass")
-    if not has_verb:
-        output.append("verb 3")
-
-    return "\n".join(output).strip() + "\n"
-
-
 # ============================================================
 # CLEAN OLD CONFIGS
 # ============================================================
@@ -302,6 +340,7 @@ def clean_old_configs() -> None:
 # ============================================================
 
 def group_servers_by_country(servers: list[dict]) -> list[dict]:
+    """Keep only the best servers per country."""
     country_map = {}
 
     for server in servers:
@@ -335,6 +374,17 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
     print(f"\n📋 CSV header at line: {header_index + 1}")
     print(f"📋 Columns: {', '.join(headers[:8])}...")
 
+    header_map = {name: index for index, name in enumerate(headers)}
+
+    required = [
+        "hostname", "ip", "score", "ping", "speed",
+        "countrylong", "countryshort", "openvpn_configdata_base64"
+    ]
+
+    missing = [col for col in required if col not in header_map]
+    if missing:
+        raise RuntimeError(f"VPNGate CSV missing columns: {', '.join(missing)}")
+
     servers = []
     reader = csv.reader(lines[header_index + 1:])
 
@@ -362,7 +412,7 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
         if not config_base64:
             continue
 
-        # ✅ Check if server has active sessions
+        # ✅ Check if server has active sessions OR is reachable
         is_active = False
         if num_sessions > 0:
             print(f"  ✅ {hostname}: {num_sessions} active sessions")
@@ -370,7 +420,7 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
         else:
             # Try TCP connection check
             print(f"  🔍 Checking {hostname}...", end=" ")
-            is_active, _, _ = check_server_active(hostname, ip)
+            is_active = check_server_active(hostname, ip)
             if is_active:
                 print("✅ Active")
             else:
@@ -383,9 +433,11 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
             print(f"  ⚠️ {hostname}: invalid OpenVPN config")
             continue
 
+        # ✅ Enhance OVPN config (fix auth-user-pass, remote, etc.)
+        config = enhance_ovpn_config(config, hostname)
+
         # Save OVPN file
         filename = safe_filename(hostname)
-        config = enhance_ovpn_config(config, hostname)
         protocols = parse_ovpn_protocols(config, filename)
 
         if not protocols:
@@ -414,7 +466,7 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
             "upload_speed": None,
             "protocols": protocols,
             "score": score,
-            "ovpn_file": filename,
+            "ovpn_file": filename,  # ✅ Link to OVPN file
             "num_sessions": num_sessions,
             "uptime": uptime
         }
@@ -433,6 +485,7 @@ def write_servers_json(servers: list[dict]) -> None:
     if not servers:
         raise RuntimeError("No usable VPNGate servers found.")
 
+    # Re-number after sorting
     for index, server in enumerate(servers, start=1):
         server["id"] = index
         server["name"] = f"{server.get('country', 'Unknown')} Server {index}"
@@ -499,10 +552,10 @@ def main() -> int:
         # Sort by score
         servers.sort(key=lambda s: s.get("score", 0), reverse=True)
 
-        # Group by country
+        # Group by country (limit per country)
         servers = group_servers_by_country(servers)
 
-        # Limit
+        # Limit total
         if len(servers) > MAX_SERVERS:
             print(f"\n📊 Limiting to top {MAX_SERVERS} servers.")
             servers = servers[:MAX_SERVERS]
@@ -516,6 +569,7 @@ def main() -> int:
         for server in servers[:10]:
             print(f"{server['id']:>2}. {server['host']} | {server['country']} | "
                   f"sessions={server.get('num_sessions', 0)} | protocols={len(server['protocols'])}")
+            print(f"   📄 OVPN: {server.get('ovpn_file', 'MISSING')}")
 
         return 0
 
