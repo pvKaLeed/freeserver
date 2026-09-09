@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import base64
 import csv
-import io
 import json
 import re
 import sys
@@ -48,7 +47,7 @@ def utc_now() -> str:
 
 
 # ============================================================
-# DOWNLOAD
+# DOWNLOAD VPNGATE CSV
 # ============================================================
 
 def download_csv() -> str:
@@ -72,10 +71,14 @@ def download_csv() -> str:
             print(f"Downloaded: {len(raw):,} bytes")
 
             if not raw:
-                raise RuntimeError("VPNGate returned empty response.")
+                raise RuntimeError(
+                    "VPNGate returned an empty response."
+                )
 
-            # VPNGate normally uses UTF-8.
-            return raw.decode("utf-8", errors="replace")
+            return raw.decode(
+                "utf-8",
+                errors="replace",
+            )
 
     except HTTPError as exc:
         raise RuntimeError(
@@ -98,24 +101,24 @@ def download_csv() -> str:
 # ============================================================
 
 def safe_base64_decode(data: str) -> str:
-    """Decode VPNGate Base64 safely."""
+    """Safely decode Base64 OpenVPN configuration."""
 
     if not data:
         return ""
 
     data = data.strip()
 
-    # Remove spaces/newlines that may exist inside the field.
+    # Remove whitespace/newlines.
     data = re.sub(r"\s+", "", data)
 
-    # Some API responses may contain URL-safe Base64.
+    # Support URL-safe Base64.
     data = data.replace("-", "+").replace("_", "/")
 
-    # Fix padding.
-    padding = len(data) % 4
+    # Fix missing padding.
+    missing_padding = len(data) % 4
 
-    if padding:
-        data += "=" * (4 - padding)
+    if missing_padding:
+        data += "=" * (4 - missing_padding)
 
     try:
         decoded = base64.b64decode(
@@ -129,16 +132,18 @@ def safe_base64_decode(data: str) -> str:
         )
 
     except Exception as exc:
-        print(f"WARNING: Base64 decode failed: {exc}")
+        print(
+            f"WARNING: Base64 decode failed: {exc}"
+        )
         return ""
 
 
 # ============================================================
-# HEADER HELPERS
+# CSV HEADER
 # ============================================================
 
 def normalize_header(value: str) -> str:
-    """Normalize CSV header names."""
+    """Normalize VPNGate CSV header names."""
 
     value = value.strip()
 
@@ -148,13 +153,23 @@ def normalize_header(value: str) -> str:
     return value.strip().lower()
 
 
-def find_header(lines: list[str]) -> tuple[int, list[str]]:
+def find_header(
+    lines: list[str],
+) -> tuple[int, list[str]]:
     """
     Find VPNGate CSV header.
 
-    VPNGate responses can contain comment lines before the
-    actual CSV header.
+    Current VPNGate API normally returns:
+
+    #HostName,IP,Score,Ping,Speed,CountryLong,
+    CountryShort,NumVpnSessions,Uptime,TotalUsers,
+    TotalTraffic,LogType,Operator,Message,
+    OpenVPN_ConfigData_Base64
     """
+
+    # --------------------------------------------------------
+    # Direct header search
+    # --------------------------------------------------------
 
     for index, line in enumerate(lines):
 
@@ -163,21 +178,30 @@ def find_header(lines: list[str]) -> tuple[int, list[str]]:
         if not stripped:
             continue
 
-        # Most common:
-        # #HostName,IP,Score,...
         if (
             stripped.startswith("#HostName")
             or stripped.startswith("HostName")
         ):
             reader = csv.reader([stripped])
-            header = next(reader)
 
-            return index, [
-                normalize_header(x)
-                for x in header
+            try:
+                header = next(reader)
+            except Exception as exc:
+                raise RuntimeError(
+                    f"Could not parse VPNGate header: {exc}"
+                ) from exc
+
+            normalized = [
+                normalize_header(column)
+                for column in header
             ]
 
-    # Fallback: find any line containing HostName + IP.
+            return index, normalized
+
+    # --------------------------------------------------------
+    # Fallback header search
+    # --------------------------------------------------------
+
     for index, line in enumerate(lines):
 
         stripped = line.strip()
@@ -190,11 +214,18 @@ def find_header(lines: list[str]) -> tuple[int, list[str]]:
             row = next(reader)
 
             normalized = [
-                normalize_header(x)
-                for x in row
+                normalize_header(column)
+                for column in row
             ]
 
-            if "hostname" in normalized and "ip" in normalized:
+            if (
+                "hostname" in normalized
+                and "ip" in normalized
+                and (
+                    "openvpn_configdata_base64"
+                    in normalized
+                )
+            ):
                 return index, normalized
 
         except Exception:
@@ -206,7 +237,7 @@ def find_header(lines: list[str]) -> tuple[int, list[str]]:
 
 
 # ============================================================
-# COLUMN LOOKUP
+# CSV COLUMN
 # ============================================================
 
 def get_column(
@@ -228,19 +259,29 @@ def get_column(
 
 
 # ============================================================
-# PROTOCOL
+# NUMERIC
+# ============================================================
+
+def parse_int(value: str) -> int:
+    try:
+        return int(float(value))
+    except (ValueError, TypeError):
+        return 0
+
+
+# ============================================================
+# PROTOCOL AVAILABILITY
 # ============================================================
 
 def is_available(value: str) -> bool:
     """
     VPNGate protocol availability.
 
-    Usually values are:
-    0 = unavailable
-    1 = available
+    Usually:
+        0 = unavailable
+        1 = available
 
-    Some responses can contain other numeric values,
-    therefore any non-zero numeric value is considered available.
+    Any positive numeric value is treated as available.
     """
 
     value = value.strip()
@@ -250,12 +291,14 @@ def is_available(value: str) -> bool:
 
     try:
         return int(float(value)) > 0
+
     except ValueError:
         return value.lower() not in {
             "false",
             "no",
             "none",
             "null",
+            "unavailable",
         }
 
 
@@ -266,18 +309,58 @@ def build_protocols(
 ) -> list[dict]:
 
     protocol_definitions = [
-        ("udp_443", "udp", 443, "udp443"),
-        ("udp_1194", "udp", 1194, "udp1194"),
-        ("tcp_443", "tcp", 443, "tcp443"),
-        ("tcp_80", "tcp", 80, "tcp80"),
-        ("tcp_1194", "tcp", 1194, "tcp1194"),
-        ("udp_80", "udp", 80, "udp80"),
-        ("udp_53", "udp", 53, "udp53"),
+        (
+            "udp_443",
+            "udp",
+            443,
+            "udp443",
+        ),
+        (
+            "udp_1194",
+            "udp",
+            1194,
+            "udp1194",
+        ),
+        (
+            "tcp_443",
+            "tcp",
+            443,
+            "tcp443",
+        ),
+        (
+            "tcp_80",
+            "tcp",
+            80,
+            "tcp80",
+        ),
+        (
+            "tcp_1194",
+            "tcp",
+            1194,
+            "tcp1194",
+        ),
+        (
+            "udp_80",
+            "udp",
+            80,
+            "udp80",
+        ),
+        (
+            "udp_53",
+            "udp",
+            53,
+            "udp53",
+        ),
     ]
 
     protocols = []
 
-    for column, transport, port, protocol_id in protocol_definitions:
+    for (
+        column,
+        transport,
+        port,
+        protocol_id,
+    ) in protocol_definitions:
 
         value = get_column(
             row,
@@ -286,6 +369,7 @@ def build_protocols(
         )
 
         if is_available(value):
+
             protocols.append(
                 {
                     "id": protocol_id,
@@ -300,11 +384,11 @@ def build_protocols(
 
 
 # ============================================================
-# OVPN CLEANUP
+# OLD CONFIG CLEANUP
 # ============================================================
 
 def clean_old_configs() -> None:
-    """Delete old generated OVPN files."""
+    """Remove previously generated OVPN files."""
 
     OUTPUT_DIR.mkdir(
         parents=True,
@@ -321,7 +405,8 @@ def clean_old_configs() -> None:
 
         except OSError as exc:
             print(
-                f"WARNING: Cannot remove {file.name}: {exc}"
+                f"WARNING: Could not remove "
+                f"{file.name}: {exc}"
             )
 
     print(
@@ -330,19 +415,21 @@ def clean_old_configs() -> None:
 
 
 # ============================================================
-# FILENAME
+# SAFE FILENAME
 # ============================================================
 
 def safe_filename(hostname: str) -> str:
 
     name = hostname.strip()
 
+    # Keep only safe filename characters.
     name = re.sub(
         r"[^A-Za-z0-9._-]+",
         "_",
         name,
     )
 
+    # Match the previous filename convention.
     name = name.replace(".", "_")
     name = name.replace("-", "_")
 
@@ -353,49 +440,7 @@ def safe_filename(hostname: str) -> str:
 
 
 # ============================================================
-# OVPN CONFIG
-# ============================================================
-
-def normalize_ovpn_config(
-    config: str,
-    hostname: str,
-) -> str:
-
-    lines = config.splitlines()
-
-    output = []
-
-    for line in lines:
-
-        stripped = line.strip()
-
-        # VPNGate occasionally uses an unknown remote value.
-        if stripped.startswith("remote "):
-
-            parts = stripped.split()
-
-            if len(parts) >= 2:
-
-                # Preserve port if present.
-                if len(parts) >= 3:
-                    port = parts[2]
-                    output.append(
-                        f"remote {hostname} {port}"
-                    )
-                else:
-                    output.append(
-                        f"remote {hostname} 1194"
-                    )
-
-                continue
-
-        output.append(line)
-
-    return "\n".join(output).strip() + "\n"
-
-
-# ============================================================
-# CONFIG VALIDATION
+# OPENVPN CONFIG VALIDATION
 # ============================================================
 
 def is_valid_ovpn(config: str) -> bool:
@@ -406,13 +451,16 @@ def is_valid_ovpn(config: str) -> bool:
     lower = config.lower()
 
     has_client = (
-        "\nclient" in lower
-        or lower.startswith("client")
+        lower.startswith("client")
+        or "\nclient" in lower
     )
 
-    has_remote = "\nremote " in lower
+    has_remote = (
+        "\nremote " in lower
+        or lower.startswith("remote ")
+    )
 
-    has_cert = (
+    has_certificate = (
         "<ca>" in lower
         or "<cert>" in lower
         or "<key>" in lower
@@ -421,24 +469,71 @@ def is_valid_ovpn(config: str) -> bool:
     return (
         has_client
         and has_remote
-        and has_cert
+        and has_certificate
     )
 
 
 # ============================================================
-# SCORE
+# NORMALIZE OPENVPN CONFIG
 # ============================================================
 
-def parse_score(value: str) -> int:
+def normalize_ovpn_config(
+    config: str,
+    hostname: str,
+) -> str:
+    """
+    Replace an invalid 'remote unknown ...' entry
+    with the actual VPNGate hostname.
+    """
 
-    try:
-        return int(float(value))
-    except (ValueError, TypeError):
-        return 0
+    lines = config.splitlines()
+
+    updated = []
+
+    for line in lines:
+
+        stripped = line.strip()
+
+        if stripped.startswith("remote "):
+
+            parts = stripped.split()
+
+            if len(parts) >= 2:
+
+                # remote <host> <port>
+                if len(parts) >= 3:
+
+                    port = parts[2]
+
+                    # Only replace obvious unknown values.
+                    if parts[1].lower() in {
+                        "unknown",
+                        "localhost",
+                        "127.0.0.1",
+                    }:
+                        updated.append(
+                            f"remote {hostname} {port}"
+                        )
+                        continue
+
+                # remote unknown without port.
+                if parts[1].lower() in {
+                    "unknown",
+                    "localhost",
+                    "127.0.0.1",
+                }:
+                    updated.append(
+                        f"remote {hostname} 1194"
+                    )
+                    continue
+
+        updated.append(line)
+
+    return "\n".join(updated).strip() + "\n"
 
 
 # ============================================================
-# CSV PARSER
+# PARSE VPNGATE CSV
 # ============================================================
 
 def parse_vpngate_csv(
@@ -450,19 +545,19 @@ def parse_vpngate_csv(
             "VPNGate response is empty."
         )
 
-    # Keep blank lines because the header location matters.
     lines = csv_content.splitlines()
 
     header_index, headers = find_header(lines)
 
     print()
     print(
-        f"CSV header found at line: {header_index + 1}"
+        f"CSV header found at line: "
+        f"{header_index + 1}"
     )
 
     print(
-        "Columns:",
-        ", ".join(headers),
+        "Columns: "
+        + ", ".join(headers)
     )
 
     header_map = {
@@ -470,27 +565,39 @@ def parse_vpngate_csv(
         for index, name in enumerate(headers)
     }
 
+    # --------------------------------------------------------
+    # CURRENT VPNGATE COLUMN NAMES
+    # --------------------------------------------------------
+
     required = [
         "hostname",
         "ip",
-        "country",
-        "countrycode",
+        "score",
+        "ping",
+        "speed",
+        "countrylong",
+        "countryshort",
         "openvpn_configdata_base64",
     ]
 
     missing = [
-        name
-        for name in required
-        if name not in header_map
+        column
+        for column in required
+        if column not in header_map
     ]
 
     if missing:
         raise RuntimeError(
-            "VPNGate CSV is missing required columns: "
+            "VPNGate CSV is missing required "
+            "columns: "
             + ", ".join(missing)
         )
 
     servers = []
+
+    # --------------------------------------------------------
+    # CSV READER
+    # --------------------------------------------------------
 
     reader = csv.reader(
         lines[header_index + 1:]
@@ -504,20 +611,24 @@ def parse_vpngate_csv(
         if not row:
             continue
 
-        # Ignore comment rows.
-        first = row[0].strip()
-
-        if first.startswith("#"):
+        # Ignore comment lines.
+        if row[0].strip().startswith("#"):
             continue
 
-        # Make sure row is long enough.
+        # Make sure the row is not truncated.
         if len(row) < len(headers):
+
             print(
                 f"WARNING: Row {row_number} has "
                 f"{len(row)} columns; expected "
                 f"{len(headers)}. Skipping."
             )
+
             continue
+
+        # ----------------------------------------------------
+        # SERVER DATA
+        # ----------------------------------------------------
 
         hostname = get_column(
             row,
@@ -531,26 +642,42 @@ def parse_vpngate_csv(
             "ip",
         )
 
+        score = parse_int(
+            get_column(
+                row,
+                header_map,
+                "score",
+            )
+        )
+
+        ping = parse_int(
+            get_column(
+                row,
+                header_map,
+                "ping",
+            )
+        )
+
+        speed = parse_int(
+            get_column(
+                row,
+                header_map,
+                "speed",
+            )
+        )
+
         country = get_column(
             row,
             header_map,
-            "country",
+            "countrylong",
             "Unknown",
         )
 
         country_code = get_column(
             row,
             header_map,
-            "countrycode",
+            "countryshort",
             "UN",
-        )
-
-        score = parse_score(
-            get_column(
-                row,
-                header_map,
-                "score",
-            )
         )
 
         config_base64 = get_column(
@@ -559,26 +686,48 @@ def parse_vpngate_csv(
             "openvpn_configdata_base64",
         )
 
+        # ----------------------------------------------------
+        # BASIC VALIDATION
+        # ----------------------------------------------------
+
         if not hostname:
             continue
 
         if not config_base64:
             print(
-                f"WARNING: {hostname}: no OVPN config"
+                f"WARNING: {hostname}: "
+                f"no OpenVPN config"
             )
             continue
+
+        # ----------------------------------------------------
+        # DECODE CONFIG
+        # ----------------------------------------------------
 
         config = safe_base64_decode(
             config_base64
         )
 
         if not is_valid_ovpn(config):
+
             print(
-                f"WARNING: {hostname}: invalid OVPN config"
+                f"WARNING: {hostname}: "
+                f"invalid OpenVPN config"
             )
+
             continue
 
-        filename = safe_filename(hostname)
+        # ----------------------------------------------------
+        # FILENAME
+        # ----------------------------------------------------
+
+        filename = safe_filename(
+            hostname
+        )
+
+        # ----------------------------------------------------
+        # NORMALIZE CONFIG
+        # ----------------------------------------------------
 
         config = normalize_ovpn_config(
             config,
@@ -588,17 +737,24 @@ def parse_vpngate_csv(
         ovpn_path = OUTPUT_DIR / filename
 
         try:
+
             ovpn_path.write_text(
                 config,
                 encoding="utf-8",
             )
 
         except OSError as exc:
+
             print(
-                f"WARNING: Failed writing "
+                f"WARNING: Failed to write "
                 f"{filename}: {exc}"
             )
+
             continue
+
+        # ----------------------------------------------------
+        # PROTOCOLS
+        # ----------------------------------------------------
 
         protocols = build_protocols(
             row,
@@ -606,8 +762,8 @@ def parse_vpngate_csv(
             filename,
         )
 
-        # If API does not provide protocol columns,
-        # don't invent unavailable protocols.
+        # Do not invent protocols if VPNGate says
+        # none are available.
         if not protocols:
 
             print(
@@ -615,8 +771,6 @@ def parse_vpngate_csv(
                 f"no available protocol"
             )
 
-            # Remove config because the server has no
-            # usable protocol according to API.
             try:
                 ovpn_path.unlink()
             except OSError:
@@ -624,17 +778,26 @@ def parse_vpngate_csv(
 
             continue
 
+        # ----------------------------------------------------
+        # SERVER ENTRY
+        # ----------------------------------------------------
+
         server = {
             "id": len(servers) + 1,
-            "name": f"{country} Server {len(servers) + 1}",
+            "name": (
+                f"{country} "
+                f"Server {len(servers) + 1}"
+            ),
             "host": hostname,
             "ip": ip or hostname,
             "country": country or "Unknown",
             "country_code": country_code or "UN",
             "type": "openvpn",
             "status": "unknown",
-            "ping": None,
-            "download_speed": None,
+            "ping": ping if ping > 0 else None,
+            "download_speed": (
+                speed if speed > 0 else None
+            ),
             "upload_speed": None,
             "protocols": protocols,
             "score": score,
@@ -646,6 +809,8 @@ def parse_vpngate_csv(
             f"OK: {hostname} | "
             f"{country} | "
             f"score={score} | "
+            f"ping={ping} | "
+            f"speed={speed} | "
             f"protocols={len(protocols)}"
         )
 
@@ -653,7 +818,7 @@ def parse_vpngate_csv(
 
 
 # ============================================================
-# JSON
+# WRITE SERVERS.JSON
 # ============================================================
 
 def write_servers_json(
@@ -665,11 +830,12 @@ def write_servers_json(
             "No usable VPNGate servers found."
         )
 
-    # Re-number after sorting.
+    # Re-number after sorting/limiting.
     for index, server in enumerate(
         servers,
         start=1,
     ):
+
         server["id"] = index
 
         country = server.get(
@@ -779,36 +945,40 @@ def main() -> int:
     try:
 
         # ----------------------------------------------------
-        # Download
+        # DOWNLOAD
         # ----------------------------------------------------
 
         csv_content = download_csv()
 
-        # Quick sanity check.
+        # ----------------------------------------------------
+        # SANITY CHECK
+        # ----------------------------------------------------
+
         if (
             "HostName" not in csv_content
             and "#HostName" not in csv_content
         ):
+
             print()
             print(
-                "WARNING: Downloaded response does not "
-                "look like normal VPNGate CSV."
+                "WARNING: Downloaded response does "
+                "not look like normal VPNGate CSV."
             )
 
-            print(
-                "First 500 characters:"
-            )
+            print()
+            print("First 500 characters:")
 
             print(
                 csv_content[:500]
             )
 
             raise RuntimeError(
-                "VPNGate API did not return expected CSV."
+                "VPNGate API did not return "
+                "the expected CSV format."
             )
 
         # ----------------------------------------------------
-        # Prepare output
+        # OUTPUT DIRECTORY
         # ----------------------------------------------------
 
         OUTPUT_DIR.mkdir(
@@ -816,10 +986,14 @@ def main() -> int:
             exist_ok=True,
         )
 
+        # ----------------------------------------------------
+        # CLEAN OLD CONFIGS
+        # ----------------------------------------------------
+
         clean_old_configs()
 
         # ----------------------------------------------------
-        # Parse
+        # PARSE
         # ----------------------------------------------------
 
         print()
@@ -835,7 +1009,7 @@ def main() -> int:
             )
 
         # ----------------------------------------------------
-        # Sort
+        # SORT BY SCORE
         # ----------------------------------------------------
 
         servers.sort(
@@ -847,11 +1021,12 @@ def main() -> int:
 
         print()
         print(
-            f"Usable servers found: {len(servers)}"
+            f"Usable servers found: "
+            f"{len(servers)}"
         )
 
         # ----------------------------------------------------
-        # Limit
+        # LIMIT
         # ----------------------------------------------------
 
         if len(servers) > MAX_SERVERS:
@@ -864,7 +1039,7 @@ def main() -> int:
             servers = servers[:MAX_SERVERS]
 
         # ----------------------------------------------------
-        # Write JSON
+        # WRITE JSON
         # ----------------------------------------------------
 
         write_servers_json(
@@ -872,7 +1047,7 @@ def main() -> int:
         )
 
         # ----------------------------------------------------
-        # Summary
+        # SUMMARY
         # ----------------------------------------------------
 
         print()
@@ -887,12 +1062,14 @@ def main() -> int:
                 f"{server['host']} | "
                 f"{server['country']} | "
                 f"score={server['score']} | "
-                f"protocols={len(server['protocols'])}"
+                f"protocols="
+                f"{len(server['protocols'])}"
             )
 
         print()
         print(
-            f"Generated: {SERVERS_JSON}"
+            f"Generated: "
+            f"{SERVERS_JSON}"
         )
 
         return 0
