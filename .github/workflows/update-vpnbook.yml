@@ -2,7 +2,7 @@ name: Update VPN Gate OpenVPN
 
 on:
   schedule:
-    - cron: "0 */12 * * *"  # Every 12 hours
+    - cron: "*/10 * * * *"  # Every 10 min
   
   workflow_dispatch:
 
