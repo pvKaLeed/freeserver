@@ -23,8 +23,7 @@ VPNGATE_API = "https://www.vpngate.net/api/iphone/"
 OUTPUT_DIR = Path("output/openvpn")
 SERVERS_JSON = OUTPUT_DIR / "servers.json"
 
-# ✅ Active server check timeout
-PING_TIMEOUT = 3  # seconds
+PING_TIMEOUT = 3
 MAX_SERVERS = 50
 MAX_PER_COUNTRY = 3
 
@@ -135,36 +134,37 @@ def find_header(lines: list[str]) -> tuple[int, list[str]]:
 
 
 # ============================================================
-# CSV COLUMN
+# ✅ ACTIVE SERVER CHECK (Multiple methods)
 # ============================================================
 
-def get_column(row: list[str], header_map: dict[str, int], name: str, default: str = "") -> str:
-    index = header_map.get(name)
-    if index is None or index >= len(row):
-        return default
-    return row[index].strip()
-
-
-def parse_int(value: str) -> int:
+def check_server_active(host: str, ip: str = None) -> tuple[bool, int, int]:
+    """
+    Check if server is active using multiple methods.
+    Returns: (is_active, num_sessions, uptime_percentage)
+    """
+    # Method 1: Try TCP connection to port 80
     try:
-        return int(float(value))
-    except (ValueError, TypeError):
-        return 0
-
-
-# ============================================================
-# ✅ ACTIVE SERVER CHECK
-# ============================================================
-
-def is_server_active(host: str, port: int = 443, timeout: int = PING_TIMEOUT) -> bool:
-    """Check if server is reachable via TCP connection."""
-    try:
+        target = ip if ip else host
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-            sock.settimeout(timeout)
-            result = sock.connect_ex((host, port))
-            return result == 0
+            sock.settimeout(PING_TIMEOUT)
+            result = sock.connect_ex((target, 80))
+            if result == 0:
+                return True, 0, 0
     except Exception:
-        return False
+        pass
+
+    # Method 2: Try TCP connection to port 443
+    try:
+        target = ip if ip else host
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.settimeout(PING_TIMEOUT)
+            result = sock.connect_ex((target, 443))
+            if result == 0:
+                return True, 0, 0
+    except Exception:
+        pass
+
+    return False, 0, 0
 
 
 # ============================================================
@@ -197,7 +197,6 @@ def is_valid_ovpn(config: str) -> bool:
 
 
 def parse_ovpn_protocols(config: str, filename: str) -> list[dict]:
-    """Parse protocol and port from OVPN config."""
     lines = config.splitlines()
     current_proto = None
     protocols = []
@@ -245,7 +244,6 @@ def parse_ovpn_protocols(config: str, filename: str) -> list[dict]:
 
 
 def enhance_ovpn_config(config: str, hostname: str) -> str:
-    """Fix remote hostname and add missing directives."""
     lines = config.splitlines()
     output = []
     has_auth = False
@@ -296,7 +294,6 @@ def clean_old_configs() -> None:
 # ============================================================
 
 def group_servers_by_country(servers: list[dict]) -> list[dict]:
-    """Keep only the best servers per country."""
     country_map = {}
 
     for server in servers:
@@ -332,15 +329,6 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
 
     header_map = {name: index for index, name in enumerate(headers)}
 
-    required = [
-        "hostname", "ip", "score", "ping", "speed",
-        "countrylong", "countryshort", "openvpn_configdata_base64"
-    ]
-
-    missing = [col for col in required if col not in header_map]
-    if missing:
-        raise RuntimeError(f"VPNGate CSV missing columns: {', '.join(missing)}")
-
     servers = []
     reader = csv.reader(lines[header_index + 1:])
 
@@ -350,7 +338,7 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
         if row[0].strip().startswith("#"):
             continue
 
-        # ✅ Extract data by column index (more reliable)
+        # ✅ Extract data by column index
         hostname = row[0].strip()
         ip = row[1].strip()
         score = parse_int(row[2].strip())
@@ -358,34 +346,34 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
         speed = parse_int(row[4].strip())
         country = row[5].strip()
         country_code = row[6].strip()
-        # row[7] = NumVpnSessions
-        # row[8] = Uptime
-        # row[9] = TotalUsers
-        # row[10] = TotalTraffic
-        # row[11] = LogType
-        # row[12] = Operator
-        # row[13] = Message
+        num_sessions = parse_int(row[7].strip()) if len(row) > 7 else 0
+        uptime = row[8].strip() if len(row) > 8 else "0%"
+        total_users = parse_int(row[9].strip()) if len(row) > 9 else 0
         config_base64 = row[14].strip() if len(row) > 14 else ""
 
-        if not hostname:
+        if not hostname or not config_base64:
             continue
 
-        if not config_base64:
-            print(f"  ⚠️ {hostname}: no OpenVPN config")
-            continue
+        # ✅ Check if server has active sessions OR is reachable
+        is_active = False
+        if num_sessions > 0:
+            print(f"  ✅ {hostname}: {num_sessions} active sessions")
+            is_active = True
+        else:
+            # Try TCP connection check
+            print(f"  🔍 Checking {hostname}...", end=" ")
+            is_active, _, _ = check_server_active(hostname, ip)
+            if is_active:
+                print("✅ Active (TCP)")
+            else:
+                print("❌ Inactive")
+                continue
 
         # Decode config
         config = safe_base64_decode(config_base64)
         if not config or not is_valid_ovpn(config):
             print(f"  ⚠️ {hostname}: invalid OpenVPN config")
             continue
-
-        # ✅ Check if server is active
-        print(f"  🔍 Checking {hostname}...", end=" ")
-        if not is_server_active(hostname, port=443):
-            print("❌ Inactive")
-            continue
-        print("✅ Active")
 
         # Save OVPN file
         filename = safe_filename(hostname)
@@ -403,7 +391,7 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
             print(f"  ⚠️ Failed to write {filename}: {exc}")
             continue
 
-        # ✅ Build server entry with ovpn_file
+        # ✅ Build server entry
         server = {
             "id": len(servers) + 1,
             "name": f"{country} Server {len(servers) + 1}",
@@ -412,17 +400,19 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
             "country": country if country else "Unknown",
             "country_code": country_code if country_code else "UN",
             "type": "openvpn",
-            "status": "online" if ping > 0 else "unknown",
+            "status": "online" if is_active else "unknown",
             "ping": ping if ping > 0 else None,
             "download_speed": speed if speed > 0 else None,
             "upload_speed": None,
             "protocols": protocols,
             "score": score,
-            "ovpn_file": filename  # ✅ Link to OVPN file
+            "ovpn_file": filename,
+            "num_sessions": num_sessions,
+            "uptime": uptime
         }
 
         servers.append(server)
-        print(f"  ✅ {hostname} | {country} | score={score} | protocols={len(protocols)}")
+        print(f"  ✅ Added {hostname} | {country} | score={score} | sessions={num_sessions}")
 
     return servers
 
@@ -435,7 +425,6 @@ def write_servers_json(servers: list[dict]) -> None:
     if not servers:
         raise RuntimeError("No usable VPNGate servers found.")
 
-    # Re-number
     for index, server in enumerate(servers, start=1):
         server["id"] = index
         server["name"] = f"{server.get('country', 'Unknown')} Server {index}"
@@ -483,20 +472,16 @@ def main() -> int:
     print("=" * 70)
 
     try:
-        # Download
         csv_content = download_csv()
 
-        # Validate
         if "HostName" not in csv_content and "#HostName" not in csv_content:
             print("\n⚠️ Response does not look like VPNGate CSV.")
             print(csv_content[:500])
             raise RuntimeError("VPNGate API returned unexpected data.")
 
-        # Prepare
         OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         clean_old_configs()
 
-        # Parse
         print("\n📊 Parsing VPNGate servers...")
         servers = parse_vpngate_csv(csv_content)
 
@@ -514,18 +499,15 @@ def main() -> int:
             print(f"\n📊 Limiting to top {MAX_SERVERS} servers.")
             servers = servers[:MAX_SERVERS]
 
-        # Write
         write_servers_json(servers)
 
-        # Summary
         print("\n" + "=" * 70)
         print("✅ UPDATE COMPLETE")
         print("=" * 70)
 
         for server in servers[:10]:
             print(f"{server['id']:>2}. {server['host']} | {server['country']} | "
-                  f"score={server['score']} | protocols={len(server['protocols'])}")
-            print(f"   📄 OVPN: {server.get('ovpn_file', 'MISSING')}")
+                  f"sessions={server.get('num_sessions', 0)} | protocols={len(server['protocols'])}")
 
         return 0
 
