@@ -42,25 +42,46 @@ def download_csv() -> str:
         return response.read().decode("utf-8", errors="ignore")
 
 
+def safe_base64_decode(data: str) -> str:
+    """Safely decode base64 string with padding fix."""
+    
+    if not data:
+        return ""
+    
+    # Remove whitespace and newlines
+    data = data.strip()
+    
+    # Add padding if needed
+    missing_padding = len(data) % 4
+    if missing_padding:
+        data += "=" * (4 - missing_padding)
+    
+    try:
+        decoded = base64.b64decode(data).decode("utf-8", errors="ignore")
+        return decoded
+    except Exception as e:
+        print(f"  ⚠️ Base64 decode error: {e}")
+        return ""
+
+
 def parse_vpngate_csv(csv_content: str) -> list[dict]:
     """
     Parse VPN Gate CSV and extract OpenVPN configs.
     
-    VPN Gate CSV Columns (index):
-    0: # (comment/序号)
-    1: Country
-    2: CountryCode
-    3: Score
-    4: IP
-    5: Hostname
-    6: UDP_443
-    7: UDP_1194
-    8: TCP_443
-    9: TCP_80
-    10: TCP_1194
-    11: UDP_80
-    12: UDP_53
-    13: OpenVPN_ConfigData_Base64
+    VPN Gate CSV Columns (from actual API):
+    0: HostName
+    1: IP
+    2: Score
+    3: Country
+    4: CountryCode
+    5: UDP_443
+    6: UDP_1194
+    7: TCP_443
+    8: TCP_80
+    9: TCP_1194
+    10: UDP_80
+    11: UDP_53
+    12: OpenVPN_ConfigData_Base64
     """
     
     lines = csv_content.strip().splitlines()
@@ -70,85 +91,103 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
     
     servers = []
     
-    # ✅ ပထမစာကြောင်း (header) ကို ကျော်ပါ
-    for line in lines[1:]:
+    # ✅ Header ကို ရှာပါ
+    header_line = None
+    data_start_index = 0
+    
+    for i, line in enumerate(lines):
+        if line.startswith("#HostName") or line.startswith("HostName"):
+            header_line = line
+            data_start_index = i + 1
+            break
+    
+    if not header_line:
+        # Header မတွေ့ရင် ပထမစာကြောင်းကို header အဖြစ်ယူဆ
+        header_line = lines[0]
+        data_start_index = 1
+    
+    print(f"Header: {header_line[:100]}...")
+    
+    # ✅ CSV reader နဲ့ parse လုပ်ပါ
+    for line in lines[data_start_index:]:
         if not line.strip():
             continue
-            
+        
         # CSV row ကို parse လုပ်ပါ
         reader = csv.reader([line])
-        row = next(reader, [])
+        try:
+            row = next(reader)
+        except Exception as e:
+            print(f"  ⚠️ CSV parse error: {e}")
+            continue
         
-        # အနည်းဆုံး 14 columns ရှိရပါမယ်
-        if len(row) < 14:
+        # အနည်းဆုံး 13 columns ရှိရပါမယ်
+        if len(row) < 13:
             print(f"  ⚠️ Skipping row: only {len(row)} columns")
             continue
         
         # ✅ Column index အတိုင်း ယူပါ
-        # 0: # (comment)
-        country = row[1].strip()
-        country_code = row[2].strip()
-        score_str = row[3].strip()
-        ip = row[4].strip()
-        hostname = row[5].strip()
-        udp_443 = row[6].strip()
-        udp_1194 = row[7].strip()
-        tcp_443 = row[8].strip()
-        tcp_80 = row[9].strip()
-        tcp_1194 = row[10].strip()
-        udp_80 = row[11].strip()
-        udp_53 = row[12].strip()
-        config_base64 = row[13].strip()
+        hostname = row[0].strip()
+        ip = row[1].strip()
+        score_str = row[2].strip()
+        country = row[3].strip()
+        country_code = row[4].strip()
+        udp_443 = row[5].strip()
+        udp_1194 = row[6].strip()
+        tcp_443 = row[7].strip()
+        tcp_80 = row[8].strip()
+        tcp_1194 = row[9].strip()
+        udp_80 = row[10].strip()
+        udp_53 = row[11].strip()
+        config_base64 = row[12].strip() if len(row) > 12 else ""
         
-        # Skip if no OpenVPN config
-        if not config_base64:
-            continue
-        
-        # Decode OpenVPN config
-        try:
-            config_data = base64.b64decode(config_base64).decode("utf-8", errors="ignore")
-        except Exception as e:
-            print(f"  ⚠️ Failed to decode config for {hostname}: {e}")
-            continue
-        
-        # Skip if config is empty
-        if not config_data.strip():
-            continue
-        
-        # ✅ Hostname ကို သေချာယူပါ
+        # Skip if no hostname
         if not hostname:
-            print(f"  ⚠️ Skipping: no hostname")
             continue
         
-        # ✅ IP ကို သေချာယူပါ
-        if not ip:
-            print(f"  ⚠️ No IP for {hostname}, using hostname")
-            ip = hostname
+        # ✅ Base64 ကို safe ဖြစ်အောင် decode လုပ်ပါ
+        config_data = safe_base64_decode(config_base64)
         
-        # Generate filename
+        if not config_data:
+            print(f"  ⚠️ No config data for {hostname}")
+            continue
+        
+        # ✅ OpenVPN config ဖြစ်မဖြစ် စစ်ဆေးပါ
+        if not any(keyword in config_data for keyword in ["client", "remote", "<ca>"]):
+            print(f"  ⚠️ Invalid OpenVPN config for {hostname}")
+            continue
+        
+        # ✅ Hostname ကို safe filename အဖြစ် ပြောင်းပါ
         safe_hostname = hostname.replace(".", "_").replace("-", "_")
         filename = f"{safe_hostname}.ovpn"
-        
-        # Save OVPN file
-        ovpn_path = OUTPUT_DIR / filename
         
         # ✅ Config ထဲက remote hostname ကို update လုပ်ပါ
         config_lines = config_data.splitlines()
         updated_config = []
         
         for line in config_lines:
-            if line.startswith("remote "):
-                # Replace with actual hostname and keep port
+            if line.startswith("remote ") and "unknown" in line:
+                # Replace with actual hostname
                 parts = line.split()
-                if len(parts) >= 3:
-                    updated_config.append(f"remote {hostname} {parts[2]}")
+                if len(parts) >= 2:
+                    updated_config.append(f"remote {hostname} {parts[2] if len(parts) > 2 else '1194'}")
                 else:
                     updated_config.append(f"remote {hostname} 1194")
+            elif line.startswith("remote "):
+                # Already has correct hostname, keep it
+                updated_config.append(line)
             else:
                 updated_config.append(line)
         
         config_data = "\n".join(updated_config)
-        ovpn_path.write_text(config_data, encoding="utf-8")
+        
+        # Save OVPN file
+        ovpn_path = OUTPUT_DIR / filename
+        try:
+            ovpn_path.write_text(config_data, encoding="utf-8")
+        except Exception as e:
+            print(f"  ⚠️ Failed to write file {filename}: {e}")
+            continue
         
         # Determine available protocols
         protocols = []
@@ -165,7 +204,8 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
         ]
         
         for data_val, transport, port, proto_id in protocol_list:
-            if data_val and data_val.strip():
+            # Check if protocol is available (not empty and not "0")
+            if data_val and data_val != "0":
                 protocols.append({
                     "id": proto_id,
                     "transport": transport,
@@ -194,7 +234,7 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
             "id": len(servers) + 1,
             "name": f"{country} Server {len(servers) + 1}",
             "host": hostname,
-            "ip": ip,
+            "ip": ip if ip else hostname,
             "country": country if country else "Unknown",
             "country_code": country_code if country_code else "UN",
             "type": "openvpn",
@@ -207,10 +247,7 @@ def parse_vpngate_csv(csv_content: str) -> list[dict]:
         }
         
         servers.append(server_entry)
-        
-        # ✅ Debug info
         print(f"✅ {hostname} ({country}) - {len(protocols)} protocols")
-        print(f"   IP: {ip}, Country Code: {country_code}")
     
     return servers
 
@@ -312,7 +349,7 @@ def main() -> int:
         print()
         print(f"FATAL ERROR: {exc}")
         import traceback
-        traceback.print_exc()
+        traceback.print_tb(exc.__traceback__)
         return 1
 
 
