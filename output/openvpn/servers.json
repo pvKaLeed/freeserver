@@ -3,7 +3,7 @@
   "provider": "VPNGate",
   "type": "openvpn",
   "source": "https://www.vpngate.net/",
-  "updated_at": "2026-09-09T03:27:51Z",
+  "updated_at": "2026-09-09T03:32:27Z",
   "measurement": {
     "ping": "client",
     "speed": "client",
@@ -56,11 +56,11 @@
   "servers": [
     {
       "id": 2,
-      "name": "vpn171113221 Server 2",
-      "host": "26300925",
-      "ip": "165",
-      "country": "vpn171113221",
-      "country_code": "74.194.252.187",
+      "name": "public-vpn-105 Server 2",
+      "host": "329492607",
+      "ip": "22",
+      "country": "public-vpn-105",
+      "country_code": "219.100.37.85",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -68,64 +68,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "26300925.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "26300925.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "26300925.ovpn",
+          "file": "329492607.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "26300925.ovpn",
+          "file": "329492607.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "26300925.ovpn",
+          "file": "329492607.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "329492607.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "26300925.ovpn",
+          "file": "329492607.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "329492607.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "26300925.ovpn",
+          "file": "329492607.ovpn",
           "available": true
         }
       ],
-      "score": 3659863
+      "score": 2897104
     },
     {
       "id": 3,
-      "name": "public-vpn-88 Server 3",
-      "host": "366596219",
-      "ip": "13",
-      "country": "public-vpn-88",
-      "country_code": "219.100.37.30",
+      "name": "public-vpn-210 Server 3",
+      "host": "740605922",
+      "ip": "17",
+      "country": "public-vpn-210",
+      "country_code": "219.100.37.198",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -133,64 +133,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "366596219.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "366596219.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "366596219.ovpn",
+          "file": "740605922.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "366596219.ovpn",
+          "file": "740605922.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "366596219.ovpn",
+          "file": "740605922.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "740605922.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "366596219.ovpn",
+          "file": "740605922.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "740605922.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "366596219.ovpn",
+          "file": "740605922.ovpn",
           "available": true
         }
       ],
-      "score": 2812990
+      "score": 2832944
     },
     {
       "id": 4,
-      "name": "public-vpn-207 Server 4",
-      "host": "593199096",
-      "ip": "22",
-      "country": "public-vpn-207",
-      "country_code": "219.100.37.167",
+      "name": "public-vpn-100 Server 4",
+      "host": "314745189",
+      "ip": "17",
+      "country": "public-vpn-100",
+      "country_code": "219.100.37.57",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -198,64 +198,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "593199096.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "593199096.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "593199096.ovpn",
+          "file": "314745189.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "593199096.ovpn",
+          "file": "314745189.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "593199096.ovpn",
+          "file": "314745189.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "314745189.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "593199096.ovpn",
+          "file": "314745189.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "314745189.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "593199096.ovpn",
+          "file": "314745189.ovpn",
           "available": true
         }
       ],
-      "score": 2742096
+      "score": 2777510
     },
     {
       "id": 5,
-      "name": "public-vpn-236 Server 5",
-      "host": "583814507",
-      "ip": "13",
-      "country": "public-vpn-236",
-      "country_code": "219.100.37.191",
+      "name": "public-vpn-187 Server 5",
+      "host": "741259914",
+      "ip": "16",
+      "country": "public-vpn-187",
+      "country_code": "219.100.37.179",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -263,64 +263,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "583814507.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "583814507.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "583814507.ovpn",
+          "file": "741259914.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "583814507.ovpn",
+          "file": "741259914.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "583814507.ovpn",
+          "file": "741259914.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "741259914.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "583814507.ovpn",
+          "file": "741259914.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "741259914.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "583814507.ovpn",
+          "file": "741259914.ovpn",
           "available": true
         }
       ],
-      "score": 2693461
+      "score": 2622017
     },
     {
       "id": 6,
-      "name": "public-vpn-214 Server 6",
-      "host": "384072116",
-      "ip": "10",
-      "country": "public-vpn-214",
-      "country_code": "219.100.37.204",
+      "name": "public-vpn-229 Server 6",
+      "host": "799752816",
+      "ip": "21",
+      "country": "public-vpn-229",
+      "country_code": "219.100.37.217",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -328,64 +328,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "384072116.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "384072116.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "384072116.ovpn",
+          "file": "799752816.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "384072116.ovpn",
+          "file": "799752816.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "384072116.ovpn",
+          "file": "799752816.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "799752816.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "384072116.ovpn",
+          "file": "799752816.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "799752816.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "384072116.ovpn",
+          "file": "799752816.ovpn",
           "available": true
         }
       ],
-      "score": 2420933
+      "score": 2404562
     },
     {
       "id": 7,
-      "name": "public-vpn-156 Server 7",
-      "host": "349519700",
-      "ip": "18",
-      "country": "public-vpn-156",
-      "country_code": "219.100.37.95",
+      "name": "public-vpn-71 Server 7",
+      "host": "329887004",
+      "ip": "12",
+      "country": "public-vpn-71",
+      "country_code": "219.100.37.25",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -393,64 +393,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "349519700.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "349519700.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "349519700.ovpn",
+          "file": "329887004.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "349519700.ovpn",
+          "file": "329887004.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "349519700.ovpn",
+          "file": "329887004.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "329887004.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "349519700.ovpn",
+          "file": "329887004.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "329887004.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "349519700.ovpn",
+          "file": "329887004.ovpn",
           "available": true
         }
       ],
-      "score": 2303314
+      "score": 2369077
     },
     {
       "id": 8,
-      "name": "public-vpn-48 Server 8",
-      "host": "365412721",
-      "ip": "11",
-      "country": "public-vpn-48",
-      "country_code": "219.100.37.12",
+      "name": "public-vpn-98 Server 8",
+      "host": "331483937",
+      "ip": "21",
+      "country": "public-vpn-98",
+      "country_code": "219.100.37.31",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -458,64 +458,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "365412721.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "365412721.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "365412721.ovpn",
+          "file": "331483937.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "365412721.ovpn",
+          "file": "331483937.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "365412721.ovpn",
+          "file": "331483937.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "331483937.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "365412721.ovpn",
+          "file": "331483937.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "331483937.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "365412721.ovpn",
+          "file": "331483937.ovpn",
           "available": true
         }
       ],
-      "score": 2250186
+      "score": 2329481
     },
     {
       "id": 9,
-      "name": "public-vpn-74 Server 9",
-      "host": "345296164",
-      "ip": "15",
-      "country": "public-vpn-74",
-      "country_code": "219.100.37.26",
+      "name": "public-vpn-82 Server 9",
+      "host": "652559132",
+      "ip": "17",
+      "country": "public-vpn-82",
+      "country_code": "219.100.37.54",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -523,64 +523,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "345296164.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "345296164.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "345296164.ovpn",
+          "file": "652559132.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "345296164.ovpn",
+          "file": "652559132.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "345296164.ovpn",
+          "file": "652559132.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "652559132.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "345296164.ovpn",
+          "file": "652559132.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "652559132.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "345296164.ovpn",
+          "file": "652559132.ovpn",
           "available": true
         }
       ],
-      "score": 2229051
+      "score": 2308146
     },
     {
       "id": 10,
-      "name": "public-vpn-94 Server 10",
-      "host": "328455677",
-      "ip": "16",
-      "country": "public-vpn-94",
-      "country_code": "219.100.37.56",
+      "name": "public-vpn-51 Server 10",
+      "host": "962971441",
+      "ip": "8",
+      "country": "public-vpn-51",
+      "country_code": "219.100.37.13",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -588,64 +588,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "328455677.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "328455677.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "328455677.ovpn",
+          "file": "962971441.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "328455677.ovpn",
+          "file": "962971441.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "328455677.ovpn",
+          "file": "962971441.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "962971441.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "328455677.ovpn",
+          "file": "962971441.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "962971441.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "328455677.ovpn",
+          "file": "962971441.ovpn",
           "available": true
         }
       ],
-      "score": 2105030
+      "score": 2228967
     },
     {
       "id": 11,
-      "name": "public-vpn-85 Server 11",
-      "host": "1002274927",
-      "ip": "15",
-      "country": "public-vpn-85",
-      "country_code": "219.100.37.81",
+      "name": "public-vpn-215 Server 11",
+      "host": "366750171",
+      "ip": "25",
+      "country": "public-vpn-215",
+      "country_code": "219.100.37.174",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -653,320 +653,60 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "1002274927.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "1002274927.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "1002274927.ovpn",
+          "file": "366750171.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "1002274927.ovpn",
+          "file": "366750171.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "1002274927.ovpn",
+          "file": "366750171.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "366750171.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "1002274927.ovpn",
+          "file": "366750171.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "366750171.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "1002274927.ovpn",
+          "file": "366750171.ovpn",
           "available": true
         }
       ],
-      "score": 2009260
+      "score": 2220467
     },
     {
       "id": 12,
-      "name": "public-vpn-102 Server 12",
-      "host": "343092337",
-      "ip": "15",
-      "country": "public-vpn-102",
-      "country_code": "219.100.37.32",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "343092337.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "343092337.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "343092337.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "343092337.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "343092337.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "343092337.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "343092337.ovpn",
-          "available": true
-        }
-      ],
-      "score": 1974597
-    },
-    {
-      "id": 13,
-      "name": "public-vpn-53 Server 13",
-      "host": "337186136",
-      "ip": "12",
-      "country": "public-vpn-53",
-      "country_code": "219.100.37.225",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "337186136.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "337186136.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "337186136.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "337186136.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "337186136.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "337186136.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "337186136.ovpn",
-          "available": true
-        }
-      ],
-      "score": 1854046
-    },
-    {
-      "id": 14,
-      "name": "public-vpn-205 Server 14",
-      "host": "207991503",
-      "ip": "18",
-      "country": "public-vpn-205",
-      "country_code": "219.100.37.214",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "207991503.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "207991503.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "207991503.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "207991503.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "207991503.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "207991503.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "207991503.ovpn",
-          "available": true
-        }
-      ],
-      "score": 1852395
-    },
-    {
-      "id": 15,
-      "name": "public-vpn-240 Server 15",
-      "host": "185757043",
-      "ip": "19",
-      "country": "public-vpn-240",
-      "country_code": "219.100.37.216",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "185757043.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "185757043.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "185757043.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "185757043.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "185757043.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "185757043.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "185757043.ovpn",
-          "available": true
-        }
-      ],
-      "score": 1655530
-    },
-    {
-      "id": 16,
-      "name": "public-vpn-47 Server 16",
+      "name": "public-vpn-47 Server 12",
       "host": "386629287",
       "ip": "28",
       "country": "public-vpn-47",
@@ -978,20 +718,6 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "386629287.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "386629287.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
@@ -1006,9 +732,16 @@
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
+          "file": "386629287.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
           "file": "386629287.ovpn",
           "available": true
         },
@@ -1020,6 +753,13 @@
           "available": true
         },
         {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "386629287.ovpn",
+          "available": true
+        },
+        {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
@@ -1027,15 +767,275 @@
           "available": true
         }
       ],
-      "score": 1516758
+      "score": 2198603
+    },
+    {
+      "id": 13,
+      "name": "public-vpn-42 Server 13",
+      "host": "638506661",
+      "ip": "15",
+      "country": "public-vpn-42",
+      "country_code": "219.100.37.6",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "638506661.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "638506661.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "638506661.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "638506661.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "638506661.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "638506661.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "638506661.ovpn",
+          "available": true
+        }
+      ],
+      "score": 2010707
+    },
+    {
+      "id": 14,
+      "name": "vpn103837914 Server 14",
+      "host": "165278097",
+      "ip": "16",
+      "country": "vpn103837914",
+      "country_code": "68.68.175.138",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "165278097.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "165278097.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "165278097.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "165278097.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "165278097.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "165278097.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "165278097.ovpn",
+          "available": true
+        }
+      ],
+      "score": 1930025
+    },
+    {
+      "id": 15,
+      "name": "public-vpn-235 Server 15",
+      "host": "416486924",
+      "ip": "26",
+      "country": "public-vpn-235",
+      "country_code": "219.100.37.171",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "416486924.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "416486924.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "416486924.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "416486924.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "416486924.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "416486924.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "416486924.ovpn",
+          "available": true
+        }
+      ],
+      "score": 1925994
+    },
+    {
+      "id": 16,
+      "name": "public-vpn-261 Server 16",
+      "host": "309000271",
+      "ip": "31",
+      "country": "public-vpn-261",
+      "country_code": "219.100.37.192",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "309000271.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "309000271.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "309000271.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "309000271.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "309000271.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "309000271.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "309000271.ovpn",
+          "available": true
+        }
+      ],
+      "score": 1897994
     },
     {
       "id": 17,
-      "name": "vpn433650989 Server 17",
-      "host": "62618796",
-      "ip": "10",
-      "country": "vpn433650989",
-      "country_code": "114.19.166.236",
+      "name": "public-vpn-44 Server 17",
+      "host": "419569636",
+      "ip": "8",
+      "country": "public-vpn-44",
+      "country_code": "219.100.37.8",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -1043,64 +1043,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "62618796.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "62618796.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "62618796.ovpn",
+          "file": "419569636.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "62618796.ovpn",
+          "file": "419569636.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "62618796.ovpn",
+          "file": "419569636.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "419569636.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "62618796.ovpn",
+          "file": "419569636.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "419569636.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "62618796.ovpn",
+          "file": "419569636.ovpn",
           "available": true
         }
       ],
-      "score": 1463361
+      "score": 1879960
     },
     {
       "id": 18,
-      "name": "opengw Server 18",
-      "host": "259539011",
-      "ip": "17",
-      "country": "opengw",
-      "country_code": "217.138.212.62",
+      "name": "vpn787846770 Server 18",
+      "host": "203248368",
+      "ip": "4",
+      "country": "vpn787846770",
+      "country_code": "38.78.168.203",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -1108,64 +1108,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "259539011.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "259539011.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "259539011.ovpn",
+          "file": "203248368.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "259539011.ovpn",
+          "file": "203248368.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "259539011.ovpn",
+          "file": "203248368.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "203248368.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "259539011.ovpn",
+          "file": "203248368.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "203248368.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "259539011.ovpn",
+          "file": "203248368.ovpn",
           "available": true
         }
       ],
-      "score": 1456462
+      "score": 1865697
     },
     {
       "id": 19,
-      "name": "vpn268281011 Server 19",
-      "host": "84982804",
-      "ip": "28",
-      "country": "vpn268281011",
-      "country_code": "210.91.252.33",
+      "name": "public-vpn-186 Server 19",
+      "host": "822695089",
+      "ip": "14",
+      "country": "public-vpn-186",
+      "country_code": "219.100.37.163",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -1173,64 +1173,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "84982804.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "84982804.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "84982804.ovpn",
+          "file": "822695089.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "84982804.ovpn",
+          "file": "822695089.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "84982804.ovpn",
+          "file": "822695089.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "822695089.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "84982804.ovpn",
+          "file": "822695089.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "822695089.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "84982804.ovpn",
+          "file": "822695089.ovpn",
           "available": true
         }
       ],
-      "score": 1433095
+      "score": 1549940
     },
     {
       "id": 20,
-      "name": "laud Server 20",
-      "host": "65310473",
-      "ip": "27",
-      "country": "laud",
-      "country_code": "115.179.206.241",
+      "name": "vpn252703156 Server 20",
+      "host": "877616308",
+      "ip": "4",
+      "country": "vpn252703156",
+      "country_code": "202.157.252.10",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -1238,64 +1238,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "65310473.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "65310473.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "65310473.ovpn",
+          "file": "877616308.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "65310473.ovpn",
+          "file": "877616308.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "65310473.ovpn",
+          "file": "877616308.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "877616308.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "65310473.ovpn",
+          "file": "877616308.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "877616308.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "65310473.ovpn",
+          "file": "877616308.ovpn",
           "available": true
         }
       ],
-      "score": 1393726
+      "score": 1525031
     },
     {
       "id": 21,
-      "name": "public-vpn-213 Server 21",
-      "host": "378051192",
-      "ip": "9",
-      "country": "public-vpn-213",
-      "country_code": "219.100.37.200",
+      "name": "vpn607155856 Server 21",
+      "host": "853030958",
+      "ip": "35",
+      "country": "vpn607155856",
+      "country_code": "211.197.16.167",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -1303,64 +1303,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "378051192.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "378051192.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "378051192.ovpn",
+          "file": "853030958.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "378051192.ovpn",
+          "file": "853030958.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "378051192.ovpn",
+          "file": "853030958.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "853030958.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "378051192.ovpn",
+          "file": "853030958.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "853030958.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "378051192.ovpn",
+          "file": "853030958.ovpn",
           "available": true
         }
       ],
-      "score": 1383602
+      "score": 1481413
     },
     {
       "id": 22,
-      "name": "vpn106355895 Server 22",
-      "host": "82943144",
+      "name": "vpn421074651 Server 22",
+      "host": "31205356",
       "ip": "39",
-      "country": "vpn106355895",
-      "country_code": "1.177.160.25",
+      "country": "vpn421074651",
+      "country_code": "220.78.203.168",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -1368,60 +1368,645 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "82943144.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "82943144.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "82943144.ovpn",
+          "file": "31205356.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "82943144.ovpn",
+          "file": "31205356.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "82943144.ovpn",
+          "file": "31205356.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "31205356.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "82943144.ovpn",
+          "file": "31205356.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "31205356.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "82943144.ovpn",
+          "file": "31205356.ovpn",
           "available": true
         }
       ],
-      "score": 1363023
+      "score": 1478172
     },
     {
       "id": 23,
-      "name": "vpn233024983 Server 23",
+      "name": "vpn454958850 Server 23",
+      "host": "790317857",
+      "ip": "6",
+      "country": "vpn454958850",
+      "country_code": "121.105.126.183",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "790317857.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "790317857.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "790317857.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "790317857.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "790317857.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "790317857.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "790317857.ovpn",
+          "available": true
+        }
+      ],
+      "score": 1471000
+    },
+    {
+      "id": 24,
+      "name": "vpn413896691 Server 24",
+      "host": "805757368",
+      "ip": "4",
+      "country": "vpn413896691",
+      "country_code": "59.129.41.98",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "805757368.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "805757368.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "805757368.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "805757368.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "805757368.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "805757368.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "805757368.ovpn",
+          "available": true
+        }
+      ],
+      "score": 1466522
+    },
+    {
+      "id": 25,
+      "name": "public-vpn-156 Server 25",
+      "host": "349519700",
+      "ip": "18",
+      "country": "public-vpn-156",
+      "country_code": "219.100.37.95",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "349519700.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "349519700.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "349519700.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "349519700.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "349519700.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "349519700.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "349519700.ovpn",
+          "available": true
+        }
+      ],
+      "score": 1433243
+    },
+    {
+      "id": 26,
+      "name": "vpn966533712 Server 26",
+      "host": "313400043",
+      "ip": "31",
+      "country": "vpn966533712",
+      "country_code": "59.6.114.202",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "313400043.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "313400043.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "313400043.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "313400043.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "313400043.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "313400043.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "313400043.ovpn",
+          "available": true
+        }
+      ],
+      "score": 1432932
+    },
+    {
+      "id": 27,
+      "name": "vpn574906134 Server 27",
+      "host": "67444628",
+      "ip": "35",
+      "country": "vpn574906134",
+      "country_code": "61.253.166.119",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "67444628.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "67444628.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "67444628.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "67444628.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "67444628.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "67444628.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "67444628.ovpn",
+          "available": true
+        }
+      ],
+      "score": 1391541
+    },
+    {
+      "id": 28,
+      "name": "vpn265457647 Server 28",
+      "host": "98138859",
+      "ip": "40",
+      "country": "vpn265457647",
+      "country_code": "14.92.210.132",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "98138859.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "98138859.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "98138859.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "98138859.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "98138859.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "98138859.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "98138859.ovpn",
+          "available": true
+        }
+      ],
+      "score": 1358422
+    },
+    {
+      "id": 29,
+      "name": "vpn100951413 Server 29",
+      "host": "77475224",
+      "ip": "7",
+      "country": "vpn100951413",
+      "country_code": "118.0.88.143",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "77475224.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "77475224.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "77475224.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "77475224.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "77475224.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "77475224.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "77475224.ovpn",
+          "available": true
+        }
+      ],
+      "score": 1351890
+    },
+    {
+      "id": 30,
+      "name": "vpn707115526 Server 30",
+      "host": "37888151",
+      "ip": "5",
+      "country": "vpn707115526",
+      "country_code": "121.87.170.71",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "37888151.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "37888151.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "37888151.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "37888151.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "37888151.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "37888151.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "37888151.ovpn",
+          "available": true
+        }
+      ],
+      "score": 1335329
+    },
+    {
+      "id": 31,
+      "name": "public-vpn-74 Server 31",
+      "host": "345296164",
+      "ip": "15",
+      "country": "public-vpn-74",
+      "country_code": "219.100.37.26",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "345296164.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "345296164.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "345296164.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "345296164.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "345296164.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "345296164.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "345296164.ovpn",
+          "available": true
+        }
+      ],
+      "score": 1331641
+    },
+    {
+      "id": 32,
+      "name": "vpn233024983 Server 32",
       "host": "85535112",
       "ip": "29",
       "country": "vpn233024983",
@@ -1433,20 +2018,6 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "85535112.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "85535112.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
@@ -1461,9 +2032,16 @@
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
+          "file": "85535112.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
           "file": "85535112.ovpn",
           "available": true
         },
@@ -1475,6 +2053,13 @@
           "available": true
         },
         {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "85535112.ovpn",
+          "available": true
+        },
+        {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
@@ -1482,15 +2067,15 @@
           "available": true
         }
       ],
-      "score": 1305057
+      "score": 1311815
     },
     {
-      "id": 24,
-      "name": "public-vpn-218 Server 24",
-      "host": "304436127",
-      "ip": "12",
-      "country": "public-vpn-218",
-      "country_code": "219.100.37.187",
+      "id": 33,
+      "name": "public-vpn-192 Server 33",
+      "host": "182788297",
+      "ip": "16",
+      "country": "public-vpn-192",
+      "country_code": "219.100.37.209",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -1498,60 +2083,60 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "304436127.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "304436127.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "304436127.ovpn",
+          "file": "182788297.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "304436127.ovpn",
+          "file": "182788297.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "304436127.ovpn",
+          "file": "182788297.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "182788297.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "304436127.ovpn",
+          "file": "182788297.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "182788297.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "304436127.ovpn",
+          "file": "182788297.ovpn",
           "available": true
         }
       ],
-      "score": 1255606
+      "score": 1271658
     },
     {
-      "id": 25,
-      "name": "vpn165600618 Server 25",
+      "id": 34,
+      "name": "vpn165600618 Server 34",
       "host": "897787766",
       "ip": "60",
       "country": "vpn165600618",
@@ -1563,20 +2148,6 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "897787766.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "897787766.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
@@ -1591,9 +2162,16 @@
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
+          "file": "897787766.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
           "file": "897787766.ovpn",
           "available": true
         },
@@ -1605,6 +2183,13 @@
           "available": true
         },
         {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "897787766.ovpn",
+          "available": true
+        },
+        {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
@@ -1612,600 +2197,15 @@
           "available": true
         }
       ],
-      "score": 1221267
-    },
-    {
-      "id": 26,
-      "name": "public-vpn-147 Server 26",
-      "host": "812906392",
-      "ip": "24",
-      "country": "public-vpn-147",
-      "country_code": "219.100.37.119",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "812906392.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "812906392.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "812906392.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "812906392.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "812906392.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "812906392.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "812906392.ovpn",
-          "available": true
-        }
-      ],
-      "score": 1190022
-    },
-    {
-      "id": 27,
-      "name": "vpn494053316 Server 27",
-      "host": "96061004",
-      "ip": "110",
-      "country": "vpn494053316",
-      "country_code": "46.183.131.33",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "96061004.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "96061004.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "96061004.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "96061004.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "96061004.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "96061004.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "96061004.ovpn",
-          "available": true
-        }
-      ],
-      "score": 1108750
-    },
-    {
-      "id": 28,
-      "name": "vpn421416087 Server 28",
-      "host": "135837782",
-      "ip": "15",
-      "country": "vpn421416087",
-      "country_code": "70.79.233.9",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "135837782.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "135837782.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "135837782.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "135837782.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "135837782.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "135837782.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "135837782.ovpn",
-          "available": true
-        }
-      ],
-      "score": 1094147
-    },
-    {
-      "id": 29,
-      "name": "vpn365733123 Server 29",
-      "host": "796743664",
-      "ip": "18",
-      "country": "vpn365733123",
-      "country_code": "125.14.139.248",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "796743664.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "796743664.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "796743664.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "796743664.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "796743664.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "796743664.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "796743664.ovpn",
-          "available": true
-        }
-      ],
-      "score": 1087459
-    },
-    {
-      "id": 30,
-      "name": "vpn178228519 Server 30",
-      "host": "729904006",
-      "ip": "4",
-      "country": "vpn178228519",
-      "country_code": "126.177.182.66",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "729904006.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "729904006.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "729904006.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "729904006.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "729904006.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "729904006.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "729904006.ovpn",
-          "available": true
-        }
-      ],
-      "score": 1079396
-    },
-    {
-      "id": 31,
-      "name": "vpn744397655 Server 31",
-      "host": "302918592",
-      "ip": "32",
-      "country": "vpn744397655",
-      "country_code": "121.161.112.102",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "302918592.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "302918592.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "302918592.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "302918592.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "302918592.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "302918592.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "302918592.ovpn",
-          "available": true
-        }
-      ],
-      "score": 1078982
-    },
-    {
-      "id": 32,
-      "name": "vpn721626247 Server 32",
-      "host": "807863300",
-      "ip": "2",
-      "country": "vpn721626247",
-      "country_code": "121.2.118.13",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "807863300.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "807863300.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "807863300.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "807863300.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "807863300.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "807863300.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "807863300.ovpn",
-          "available": true
-        }
-      ],
-      "score": 979701
-    },
-    {
-      "id": 33,
-      "name": "vpn821251193 Server 33",
-      "host": "79614766",
-      "ip": "34",
-      "country": "vpn821251193",
-      "country_code": "210.210.219.196",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "79614766.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "79614766.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "79614766.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "79614766.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "79614766.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "79614766.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "79614766.ovpn",
-          "available": true
-        }
-      ],
-      "score": 864896
-    },
-    {
-      "id": 34,
-      "name": "vpn716109838 Server 34",
-      "host": "516576337",
-      "ip": "31",
-      "country": "vpn716109838",
-      "country_code": "211.196.123.188",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "516576337.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "516576337.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "516576337.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "516576337.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "516576337.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "516576337.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "516576337.ovpn",
-          "available": true
-        }
-      ],
-      "score": 858202
+      "score": 1227090
     },
     {
       "id": 35,
-      "name": "kanratown Server 35",
-      "host": "707475528",
-      "ip": "9",
-      "country": "kanratown",
-      "country_code": "59.133.158.94",
+      "name": "vpn541474874 Server 35",
+      "host": "13041440",
+      "ip": "33",
+      "country": "vpn541474874",
+      "country_code": "14.37.134.238",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -2213,64 +2213,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "707475528.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "707475528.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "707475528.ovpn",
+          "file": "13041440.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "707475528.ovpn",
+          "file": "13041440.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "707475528.ovpn",
+          "file": "13041440.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "13041440.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "707475528.ovpn",
+          "file": "13041440.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "13041440.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "707475528.ovpn",
+          "file": "13041440.ovpn",
           "available": true
         }
       ],
-      "score": 807737
+      "score": 1219876
     },
     {
       "id": 36,
-      "name": "vpn805572164 Server 36",
-      "host": "924135006",
-      "ip": "8",
-      "country": "vpn805572164",
-      "country_code": "123.1.77.62",
+      "name": "vpn840632613 Server 36",
+      "host": "10501062",
+      "ip": "17",
+      "country": "vpn840632613",
+      "country_code": "183.182.115.103",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -2278,64 +2278,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "924135006.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "924135006.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "924135006.ovpn",
+          "file": "10501062.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "924135006.ovpn",
+          "file": "10501062.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "924135006.ovpn",
+          "file": "10501062.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "10501062.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "924135006.ovpn",
+          "file": "10501062.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "10501062.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "924135006.ovpn",
+          "file": "10501062.ovpn",
           "available": true
         }
       ],
-      "score": 752026
+      "score": 1181422
     },
     {
       "id": 37,
-      "name": "vpn381887891 Server 37",
-      "host": "815556904",
-      "ip": "1",
-      "country": "vpn381887891",
-      "country_code": "120.75.89.149",
+      "name": "vpn589649692 Server 37",
+      "host": "102387748",
+      "ip": "32",
+      "country": "vpn589649692",
+      "country_code": "1.230.51.110",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -2343,64 +2343,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "815556904.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "815556904.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "815556904.ovpn",
+          "file": "102387748.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "815556904.ovpn",
+          "file": "102387748.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "815556904.ovpn",
+          "file": "102387748.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "102387748.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "815556904.ovpn",
+          "file": "102387748.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "102387748.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "815556904.ovpn",
+          "file": "102387748.ovpn",
           "available": true
         }
       ],
-      "score": 743282
+      "score": 924100
     },
     {
       "id": 38,
-      "name": "vpn723529131 Server 38",
-      "host": "378739985",
-      "ip": "33",
-      "country": "vpn723529131",
-      "country_code": "61.79.191.254",
+      "name": "vpn835280998 Server 38",
+      "host": "447266272",
+      "ip": "34",
+      "country": "vpn835280998",
+      "country_code": "1.176.241.219",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -2408,64 +2408,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "378739985.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "378739985.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "378739985.ovpn",
+          "file": "447266272.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "378739985.ovpn",
+          "file": "447266272.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "378739985.ovpn",
+          "file": "447266272.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "447266272.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "378739985.ovpn",
+          "file": "447266272.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "447266272.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "378739985.ovpn",
+          "file": "447266272.ovpn",
           "available": true
         }
       ],
-      "score": 737119
+      "score": 907983
     },
     {
       "id": 39,
-      "name": "vpn446411950 Server 39",
-      "host": "93172939",
-      "ip": "39",
-      "country": "vpn446411950",
-      "country_code": "115.143.33.229",
+      "name": "vpn154861873 Server 39",
+      "host": "380651259",
+      "ip": "30",
+      "country": "vpn154861873",
+      "country_code": "220.89.232.204",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -2473,64 +2473,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "93172939.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "93172939.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "93172939.ovpn",
+          "file": "380651259.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "93172939.ovpn",
+          "file": "380651259.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "93172939.ovpn",
+          "file": "380651259.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "380651259.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "93172939.ovpn",
+          "file": "380651259.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "380651259.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "93172939.ovpn",
+          "file": "380651259.ovpn",
           "available": true
         }
       ],
-      "score": 716048
+      "score": 858436
     },
     {
       "id": 40,
-      "name": "vpn873819046 Server 40",
-      "host": "706994822",
-      "ip": "8",
-      "country": "vpn873819046",
-      "country_code": "133.149.80.9",
+      "name": "vpn201737691 Server 40",
+      "host": "562181409",
+      "ip": "3",
+      "country": "vpn201737691",
+      "country_code": "61.211.223.114",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -2538,60 +2538,385 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "706994822.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "706994822.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "706994822.ovpn",
+          "file": "562181409.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "706994822.ovpn",
+          "file": "562181409.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "706994822.ovpn",
+          "file": "562181409.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "562181409.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "706994822.ovpn",
+          "file": "562181409.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "562181409.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "706994822.ovpn",
+          "file": "562181409.ovpn",
           "available": true
         }
       ],
-      "score": 711917
+      "score": 822831
     },
     {
       "id": 41,
-      "name": "vpn437052982 Server 41",
+      "name": "vpn942772599 Server 41",
+      "host": "756867948",
+      "ip": "28",
+      "country": "vpn942772599",
+      "country_code": "222.108.215.42",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "756867948.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "756867948.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "756867948.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "756867948.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "756867948.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "756867948.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "756867948.ovpn",
+          "available": true
+        }
+      ],
+      "score": 808802
+    },
+    {
+      "id": 42,
+      "name": "vpn472453679 Server 42",
+      "host": "548553978",
+      "ip": "9",
+      "country": "vpn472453679",
+      "country_code": "222.8.219.52",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "548553978.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "548553978.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "548553978.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "548553978.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "548553978.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "548553978.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "548553978.ovpn",
+          "available": true
+        }
+      ],
+      "score": 795763
+    },
+    {
+      "id": 43,
+      "name": "vpn922350233 Server 43",
+      "host": "93476688",
+      "ip": "125",
+      "country": "vpn922350233",
+      "country_code": "77.34.113.69",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "93476688.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "93476688.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "93476688.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "93476688.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "93476688.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "93476688.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "93476688.ovpn",
+          "available": true
+        }
+      ],
+      "score": 771556
+    },
+    {
+      "id": 44,
+      "name": "vpn554018431 Server 44",
+      "host": "54703976",
+      "ip": "28",
+      "country": "vpn554018431",
+      "country_code": "211.34.170.229",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "54703976.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "54703976.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "54703976.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "54703976.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "54703976.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "54703976.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "54703976.ovpn",
+          "available": true
+        }
+      ],
+      "score": 746878
+    },
+    {
+      "id": 45,
+      "name": "vpn484776697 Server 45",
+      "host": "86055928",
+      "ip": "30",
+      "country": "vpn484776697",
+      "country_code": "210.223.225.84",
+      "type": "openvpn",
+      "status": "unknown",
+      "ping": null,
+      "download_speed": null,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "86055928.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp1194",
+          "transport": "udp",
+          "port": 1194,
+          "file": "86055928.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp80",
+          "transport": "udp",
+          "port": 80,
+          "file": "86055928.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "86055928.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "86055928.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "86055928.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp1194",
+          "transport": "tcp",
+          "port": 1194,
+          "file": "86055928.ovpn",
+          "available": true
+        }
+      ],
+      "score": 743016
+    },
+    {
+      "id": 46,
+      "name": "vpn437052982 Server 46",
       "host": "948488233",
       "ip": "2",
       "country": "vpn437052982",
@@ -2603,20 +2928,6 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "948488233.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "948488233.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
@@ -2631,9 +2942,16 @@
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
+          "file": "948488233.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
           "file": "948488233.ovpn",
           "available": true
         },
@@ -2645,6 +2963,13 @@
           "available": true
         },
         {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "948488233.ovpn",
+          "available": true
+        },
+        {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
@@ -2652,11 +2977,11 @@
           "available": true
         }
       ],
-      "score": 672621
+      "score": 672688
     },
     {
-      "id": 42,
-      "name": "vpn835934300 Server 42",
+      "id": 47,
+      "name": "vpn835934300 Server 47",
       "host": "461085848",
       "ip": "5",
       "country": "vpn835934300",
@@ -2668,20 +2993,6 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "461085848.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "461085848.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
@@ -2696,97 +3007,46 @@
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
           "file": "461085848.ovpn",
           "available": true
         },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "461085848.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "461085848.ovpn",
-          "available": true
-        }
-      ],
-      "score": 667251
-    },
-    {
-      "id": 43,
-      "name": "vpn572367355 Server 43",
-      "host": "338762024",
-      "ip": "26",
-      "country": "vpn572367355",
-      "country_code": "210.100.160.239",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
         {
           "id": "udp53",
           "transport": "udp",
           "port": 53,
-          "file": "338762024.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "338762024.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "338762024.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "338762024.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "338762024.ovpn",
+          "file": "461085848.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "338762024.ovpn",
+          "file": "461085848.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "461085848.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "338762024.ovpn",
+          "file": "461085848.ovpn",
           "available": true
         }
       ],
-      "score": 666276
+      "score": 664173
     },
     {
-      "id": 44,
-      "name": "vpn364291608 Server 44",
+      "id": 48,
+      "name": "vpn364291608 Server 48",
       "host": "43105376",
       "ip": "2",
       "country": "vpn364291608",
@@ -2798,20 +3058,6 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "43105376.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "43105376.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
@@ -2826,9 +3072,16 @@
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
+          "file": "43105376.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
           "file": "43105376.ovpn",
           "available": true
         },
@@ -2840,6 +3093,13 @@
           "available": true
         },
         {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "43105376.ovpn",
+          "available": true
+        },
+        {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
@@ -2847,275 +3107,15 @@
           "available": true
         }
       ],
-      "score": 663392
-    },
-    {
-      "id": 45,
-      "name": "vpn373922498 Server 45",
-      "host": "83360235",
-      "ip": "19",
-      "country": "vpn373922498",
-      "country_code": "182.253.54.67",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "83360235.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "83360235.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "83360235.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "83360235.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "83360235.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "83360235.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "83360235.ovpn",
-          "available": true
-        }
-      ],
-      "score": 660389
-    },
-    {
-      "id": 46,
-      "name": "vpn355319049 Server 46",
-      "host": "899108671",
-      "ip": "5",
-      "country": "vpn355319049",
-      "country_code": "221.45.120.53",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "899108671.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "899108671.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "899108671.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "899108671.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "899108671.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "899108671.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "899108671.ovpn",
-          "available": true
-        }
-      ],
-      "score": 657367
-    },
-    {
-      "id": 47,
-      "name": "vpn104320118 Server 47",
-      "host": "969458569",
-      "ip": "4",
-      "country": "vpn104320118",
-      "country_code": "219.54.189.18",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "969458569.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "969458569.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "969458569.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "969458569.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "969458569.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "969458569.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "969458569.ovpn",
-          "available": true
-        }
-      ],
-      "score": 654380
-    },
-    {
-      "id": 48,
-      "name": "vpn737724616 Server 48",
-      "host": "387392251",
-      "ip": "23",
-      "country": "vpn737724616",
-      "country_code": "218.146.192.89",
-      "type": "openvpn",
-      "status": "unknown",
-      "ping": null,
-      "download_speed": null,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "387392251.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "387392251.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "387392251.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp1194",
-          "transport": "udp",
-          "port": 1194,
-          "file": "387392251.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp80",
-          "transport": "tcp",
-          "port": 80,
-          "file": "387392251.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp443",
-          "transport": "tcp",
-          "port": 443,
-          "file": "387392251.ovpn",
-          "available": true
-        },
-        {
-          "id": "tcp1194",
-          "transport": "tcp",
-          "port": 1194,
-          "file": "387392251.ovpn",
-          "available": true
-        }
-      ],
-      "score": 645764
+      "score": 661205
     },
     {
       "id": 49,
-      "name": "vpn873672178 Server 49",
-      "host": "856600097",
-      "ip": "11",
-      "country": "vpn873672178",
-      "country_code": "115.37.230.116",
+      "name": "vpn637779736 Server 49",
+      "host": "64759899",
+      "ip": "18",
+      "country": "vpn637779736",
+      "country_code": "201.97.27.183",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -3123,64 +3123,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "856600097.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "856600097.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "856600097.ovpn",
+          "file": "64759899.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "856600097.ovpn",
+          "file": "64759899.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "856600097.ovpn",
+          "file": "64759899.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "64759899.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "856600097.ovpn",
+          "file": "64759899.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "64759899.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "856600097.ovpn",
+          "file": "64759899.ovpn",
           "available": true
         }
       ],
-      "score": 642742
+      "score": 643573
     },
     {
       "id": 50,
-      "name": "vpn512718732 Server 50",
-      "host": "330127262",
-      "ip": "9",
-      "country": "vpn512718732",
-      "country_code": "202.222.54.171",
+      "name": "vpn420429830 Server 50",
+      "host": "47377895",
+      "ip": "1",
+      "country": "vpn420429830",
+      "country_code": "91.208.52.30",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -3188,64 +3188,64 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "330127262.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "330127262.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "330127262.ovpn",
+          "file": "47377895.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "330127262.ovpn",
+          "file": "47377895.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "330127262.ovpn",
+          "file": "47377895.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "47377895.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "330127262.ovpn",
+          "file": "47377895.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "47377895.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "330127262.ovpn",
+          "file": "47377895.ovpn",
           "available": true
         }
       ],
-      "score": 632178
+      "score": 636482
     },
     {
       "id": 51,
-      "name": "vpn102800483 Server 51",
-      "host": "1650575926",
-      "ip": "3",
-      "country": "vpn102800483",
-      "country_code": "124.219.214.107",
+      "name": "vpn960863641 Server 51",
+      "host": "81999091",
+      "ip": "11",
+      "country": "vpn960863641",
+      "country_code": "223.206.244.136",
       "type": "openvpn",
       "status": "unknown",
       "ping": null,
@@ -3253,56 +3253,56 @@
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp53",
-          "transport": "udp",
-          "port": 53,
-          "file": "1650575926.ovpn",
-          "available": true
-        },
-        {
-          "id": "udp80",
-          "transport": "udp",
-          "port": 80,
-          "file": "1650575926.ovpn",
-          "available": true
-        },
-        {
           "id": "udp443",
           "transport": "udp",
           "port": 443,
-          "file": "1650575926.ovpn",
+          "file": "81999091.ovpn",
           "available": true
         },
         {
           "id": "udp1194",
           "transport": "udp",
           "port": 1194,
-          "file": "1650575926.ovpn",
+          "file": "81999091.ovpn",
           "available": true
         },
         {
-          "id": "tcp80",
-          "transport": "tcp",
+          "id": "udp80",
+          "transport": "udp",
           "port": 80,
-          "file": "1650575926.ovpn",
+          "file": "81999091.ovpn",
+          "available": true
+        },
+        {
+          "id": "udp53",
+          "transport": "udp",
+          "port": 53,
+          "file": "81999091.ovpn",
           "available": true
         },
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "1650575926.ovpn",
+          "file": "81999091.ovpn",
+          "available": true
+        },
+        {
+          "id": "tcp80",
+          "transport": "tcp",
+          "port": 80,
+          "file": "81999091.ovpn",
           "available": true
         },
         {
           "id": "tcp1194",
           "transport": "tcp",
           "port": 1194,
-          "file": "1650575926.ovpn",
+          "file": "81999091.ovpn",
           "available": true
         }
       ],
-      "score": 620765
+      "score": 631752
     }
   ]
 }
