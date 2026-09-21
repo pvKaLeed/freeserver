@@ -3,7 +3,7 @@
   "provider": "VPNGate",
   "type": "openvpn",
   "source": "https://www.vpngate.net/",
-  "updated_at": "2026-09-21T05:21:17Z",
+  "updated_at": "2026-09-21T10:57:49Z",
   "measurement": {
     "ping": "client",
     "speed": "client",
@@ -57,366 +57,470 @@
     {
       "id": 1,
       "name": "Japan Server 1",
-      "host": "public-vpn-182",
-      "ip": "219.100.37.177",
+      "host": "public-vpn-153",
+      "ip": "219.100.37.109",
       "country": "Japan",
       "country_code": "JP",
       "type": "openvpn",
       "status": "online",
       "ping": 11,
-      "download_speed": 1490032361,
+      "download_speed": 470549396,
       "upload_speed": null,
       "protocols": [
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "public_vpn_182.ovpn",
+          "file": "public_vpn_153.ovpn",
           "available": true
         }
       ],
-      "score": 2564177,
-      "ovpn_file": "public_vpn_182.ovpn",
-      "num_sessions": 147,
-      "uptime": "10244177919"
+      "score": 2724367,
+      "ovpn_file": "public_vpn_153.ovpn",
+      "num_sessions": 79,
+      "uptime": "10264778283"
     },
     {
       "id": 2,
       "name": "Japan Server 2",
-      "host": "public-vpn-206",
-      "ip": "219.100.37.165",
+      "host": "public-vpn-122",
+      "ip": "219.100.37.62",
       "country": "Japan",
       "country_code": "JP",
       "type": "openvpn",
       "status": "online",
-      "ping": 13,
-      "download_speed": 667521800,
+      "ping": 19,
+      "download_speed": 200254258,
       "upload_speed": null,
       "protocols": [
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "public_vpn_206.ovpn",
+          "file": "public_vpn_122.ovpn",
           "available": true
         }
       ],
-      "score": 2421292,
-      "ovpn_file": "public_vpn_206.ovpn",
-      "num_sessions": 78,
-      "uptime": "10244174685"
+      "score": 2635498,
+      "ovpn_file": "public_vpn_122.ovpn",
+      "num_sessions": 59,
+      "uptime": "10264778263"
     },
     {
       "id": 3,
       "name": "Japan Server 3",
-      "host": "public-vpn-65",
-      "ip": "219.100.37.82",
+      "host": "public-vpn-148",
+      "ip": "219.100.37.107",
       "country": "Japan",
       "country_code": "JP",
       "type": "openvpn",
       "status": "online",
-      "ping": 9,
-      "download_speed": 1183218073,
+      "ping": 12,
+      "download_speed": 409352266,
       "upload_speed": null,
       "protocols": [
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "public_vpn_65.ovpn",
+          "file": "public_vpn_148.ovpn",
           "available": true
         }
       ],
-      "score": 2281163,
-      "ovpn_file": "public_vpn_65.ovpn",
-      "num_sessions": 154,
-      "uptime": "10244190065"
+      "score": 2614479,
+      "ovpn_file": "public_vpn_148.ovpn",
+      "num_sessions": 38,
+      "uptime": "10264764544"
     },
     {
       "id": 4,
-      "name": "Korea Republic of Server 4",
-      "host": "vpn714978299",
-      "ip": "210.222.246.148",
-      "country": "Korea Republic of",
-      "country_code": "KR",
+      "name": "United States Server 4",
+      "host": "vpn103837914",
+      "ip": "68.68.175.138",
+      "country": "United States",
+      "country_code": "US",
       "type": "openvpn",
       "status": "online",
-      "ping": 30,
-      "download_speed": 90362955,
+      "ping": 60,
+      "download_speed": 165278097,
       "upload_speed": null,
       "protocols": [
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "vpn714978299.ovpn",
+          "file": "vpn103837914.ovpn",
           "available": true
         }
       ],
-      "score": 1490656,
-      "ovpn_file": "vpn714978299.ovpn",
-      "num_sessions": 103,
-      "uptime": "2454963781"
+      "score": 1522288,
+      "ovpn_file": "vpn103837914.ovpn",
+      "num_sessions": 65,
+      "uptime": "1000"
     },
     {
       "id": 5,
-      "name": "Korea Republic of Server 5",
-      "host": "vpn409614365",
-      "ip": "106.251.70.249",
-      "country": "Korea Republic of",
-      "country_code": "KR",
+      "name": "United States Server 5",
+      "host": "vpn680288952",
+      "ip": "47.25.225.222",
+      "country": "United States",
+      "country_code": "US",
       "type": "openvpn",
       "status": "online",
-      "ping": 41,
-      "download_speed": 180975249,
+      "ping": 20,
+      "download_speed": 50122537,
       "upload_speed": null,
       "protocols": [
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "vpn409614365.ovpn",
+          "file": "vpn680288952.ovpn",
           "available": true
         }
       ],
-      "score": 1411662,
-      "ovpn_file": "vpn409614365.ovpn",
-      "num_sessions": 112,
-      "uptime": "1942302781"
+      "score": 475345,
+      "ovpn_file": "vpn680288952.ovpn",
+      "num_sessions": 15,
+      "uptime": "1000"
     },
     {
       "id": 6,
       "name": "Korea Republic of Server 6",
-      "host": "vpn322656723",
-      "ip": "218.239.169.226",
+      "host": "vpn111698412",
+      "ip": "112.214.34.62",
       "country": "Korea Republic of",
       "country_code": "KR",
       "type": "openvpn",
       "status": "online",
-      "ping": 82,
-      "download_speed": 409984465,
+      "ping": 35,
+      "download_speed": 72105326,
       "upload_speed": null,
       "protocols": [
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "vpn322656723.ovpn",
+          "file": "vpn111698412.ovpn",
           "available": true
         }
       ],
-      "score": 1332542,
-      "ovpn_file": "vpn322656723.ovpn",
-      "num_sessions": 107,
-      "uptime": "2647593781"
+      "score": 1437057,
+      "ovpn_file": "vpn111698412.ovpn",
+      "num_sessions": 47,
+      "uptime": "587538577"
     },
     {
       "id": 7,
-      "name": "Russian Federation Server 7",
-      "host": "vpn180835692",
-      "ip": "213.129.37.84",
-      "country": "Russian Federation",
-      "country_code": "RU",
+      "name": "Korea Republic of Server 7",
+      "host": "vpn726593323",
+      "ip": "112.168.254.233",
+      "country": "Korea Republic of",
+      "country_code": "KR",
       "type": "openvpn",
       "status": "online",
-      "ping": 70,
-      "download_speed": 54710602,
+      "ping": 32,
+      "download_speed": 29538913,
       "upload_speed": null,
       "protocols": [
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "vpn180835692.ovpn",
+          "file": "vpn726593323.ovpn",
           "available": true
         }
       ],
-      "score": 1272328,
-      "ovpn_file": "vpn180835692.ovpn",
-      "num_sessions": 2,
-      "uptime": "1509659781"
+      "score": 1407850,
+      "ovpn_file": "vpn726593323.ovpn",
+      "num_sessions": 14,
+      "uptime": "691221577"
     },
     {
       "id": 8,
-      "name": "Russian Federation Server 8",
-      "host": "vpn740346691",
-      "ip": "91.205.236.40",
-      "country": "Russian Federation",
-      "country_code": "RU",
+      "name": "Korea Republic of Server 8",
+      "host": "vpn342507128",
+      "ip": "121.141.193.10",
+      "country": "Korea Republic of",
+      "country_code": "KR",
       "type": "openvpn",
       "status": "online",
-      "ping": 35,
-      "download_speed": 370317532,
+      "ping": 27,
+      "download_speed": 77980677,
       "upload_speed": null,
       "protocols": [
         {
-          "id": "udp443",
-          "transport": "udp",
+          "id": "tcp443",
+          "transport": "tcp",
           "port": 443,
-          "file": "vpn740346691.ovpn",
+          "file": "vpn342507128.ovpn",
           "available": true
         }
       ],
-      "score": 573704,
-      "ovpn_file": "vpn740346691.ovpn",
-      "num_sessions": 2,
-      "uptime": "54074781"
+      "score": 1406283,
+      "ovpn_file": "vpn342507128.ovpn",
+      "num_sessions": 63,
+      "uptime": "776368577"
     },
     {
       "id": 9,
-      "name": "Russian Federation Server 9",
-      "host": "vpn266997445",
-      "ip": "217.144.174.117",
+      "name": "Viet Nam Server 9",
+      "host": "vpn894929051",
+      "ip": "1.54.227.168",
+      "country": "Viet Nam",
+      "country_code": "VN",
+      "type": "openvpn",
+      "status": "online",
+      "ping": 22,
+      "download_speed": 340570506,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "vpn894929051.ovpn",
+          "available": true
+        }
+      ],
+      "score": 912453,
+      "ovpn_file": "vpn894929051.ovpn",
+      "num_sessions": 110,
+      "uptime": "168313577"
+    },
+    {
+      "id": 10,
+      "name": "Viet Nam Server 10",
+      "host": "vpn743566583",
+      "ip": "1.54.227.168",
+      "country": "Viet Nam",
+      "country_code": "VN",
+      "type": "openvpn",
+      "status": "online",
+      "ping": 22,
+      "download_speed": 562656497,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "vpn743566583.ovpn",
+          "available": true
+        }
+      ],
+      "score": 873088,
+      "ovpn_file": "vpn743566583.ovpn",
+      "num_sessions": 38,
+      "uptime": "156651577"
+    },
+    {
+      "id": 11,
+      "name": "Viet Nam Server 11",
+      "host": "vpn922312929",
+      "ip": "1.54.227.168",
+      "country": "Viet Nam",
+      "country_code": "VN",
+      "type": "openvpn",
+      "status": "online",
+      "ping": 22,
+      "download_speed": 264867742,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "vpn922312929.ovpn",
+          "available": true
+        }
+      ],
+      "score": 857724,
+      "ovpn_file": "vpn922312929.ovpn",
+      "num_sessions": 14,
+      "uptime": "156651577"
+    },
+    {
+      "id": 12,
+      "name": "Russian Federation Server 12",
+      "host": "vpn907670030",
+      "ip": "77.82.163.71",
       "country": "Russian Federation",
       "country_code": "RU",
       "type": "openvpn",
       "status": "online",
-      "ping": 63,
-      "download_speed": 65496150,
+      "ping": 72,
+      "download_speed": 84590376,
       "upload_speed": null,
       "protocols": [
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "vpn266997445.ovpn",
+          "file": "vpn907670030.ovpn",
           "available": true
         }
       ],
-      "score": 540452,
-      "ovpn_file": "vpn266997445.ovpn",
-      "num_sessions": 0,
-      "uptime": "54074781"
-    },
-    {
-      "id": 10,
-      "name": "Thailand Server 10",
-      "host": "vpn334194419",
-      "ip": "49.48.220.7",
-      "country": "Thailand",
-      "country_code": "TH",
-      "type": "openvpn",
-      "status": "online",
-      "ping": 7,
-      "download_speed": 77836008,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "vpn334194419.ovpn",
-          "available": true
-        }
-      ],
-      "score": 777914,
-      "ovpn_file": "vpn334194419.ovpn",
-      "num_sessions": 36,
-      "uptime": "123709781"
-    },
-    {
-      "id": 11,
-      "name": "Thailand Server 11",
-      "host": "vpn218491475",
-      "ip": "171.4.228.114",
-      "country": "Thailand",
-      "country_code": "TH",
-      "type": "openvpn",
-      "status": "online",
-      "ping": 12,
-      "download_speed": 87961414,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "vpn218491475.ovpn",
-          "available": true
-        }
-      ],
-      "score": 620537,
-      "ovpn_file": "vpn218491475.ovpn",
-      "num_sessions": 4,
-      "uptime": "0"
-    },
-    {
-      "id": 12,
-      "name": "Argentina Server 12",
-      "host": "vpn412340960",
-      "ip": "186.12.228.57",
-      "country": "Argentina",
-      "country_code": "AR",
-      "type": "openvpn",
-      "status": "online",
-      "ping": 4,
-      "download_speed": 22711022,
-      "upload_speed": null,
-      "protocols": [
-        {
-          "id": "udp443",
-          "transport": "udp",
-          "port": 443,
-          "file": "vpn412340960.ovpn",
-          "available": true
-        }
-      ],
-      "score": 521881,
-      "ovpn_file": "vpn412340960.ovpn",
-      "num_sessions": 27,
-      "uptime": "0"
+      "score": 801787,
+      "ovpn_file": "vpn907670030.ovpn",
+      "num_sessions": 1,
+      "uptime": "235216577"
     },
     {
       "id": 13,
-      "name": "United States Server 13",
-      "host": "vpn693772556",
-      "ip": "169.197.146.173",
-      "country": "United States",
-      "country_code": "US",
+      "name": "Russian Federation Server 13",
+      "host": "vpn174562592",
+      "ip": "5.187.87.158",
+      "country": "Russian Federation",
+      "country_code": "RU",
       "type": "openvpn",
       "status": "online",
-      "ping": 12,
-      "download_speed": 77262616,
+      "ping": 29,
+      "download_speed": 31823787,
       "upload_speed": null,
       "protocols": [
         {
-          "id": "tcp443",
-          "transport": "tcp",
+          "id": "udp443",
+          "transport": "udp",
           "port": 443,
-          "file": "vpn693772556.ovpn",
+          "file": "vpn174562592.ovpn",
           "available": true
         }
       ],
-      "score": 509339,
-      "ovpn_file": "vpn693772556.ovpn",
-      "num_sessions": 40,
-      "uptime": "0"
+      "score": 658634,
+      "ovpn_file": "vpn174562592.ovpn",
+      "num_sessions": 4,
+      "uptime": "75110577"
     },
     {
       "id": 14,
-      "name": "United States Server 14",
-      "host": "vpn964843153",
-      "ip": "162.247.89.167",
-      "country": "United States",
-      "country_code": "US",
+      "name": "Russian Federation Server 14",
+      "host": "vpn551454672",
+      "ip": "46.147.183.214",
+      "country": "Russian Federation",
+      "country_code": "RU",
       "type": "openvpn",
       "status": "online",
-      "ping": 21,
-      "download_speed": 50748527,
+      "ping": 31,
+      "download_speed": 113271318,
       "upload_speed": null,
       "protocols": [
         {
           "id": "tcp443",
           "transport": "tcp",
           "port": 443,
-          "file": "vpn964843153.ovpn",
+          "file": "vpn551454672.ovpn",
           "available": true
         }
       ],
-      "score": 460014,
-      "ovpn_file": "vpn964843153.ovpn",
-      "num_sessions": 7,
-      "uptime": "0"
+      "score": 628630,
+      "ovpn_file": "vpn551454672.ovpn",
+      "num_sessions": 2,
+      "uptime": "75110577"
+    },
+    {
+      "id": 15,
+      "name": "Thailand Server 15",
+      "host": "vpn460820669",
+      "ip": "27.130.102.216",
+      "country": "Thailand",
+      "country_code": "TH",
+      "type": "openvpn",
+      "status": "online",
+      "ping": 10,
+      "download_speed": 59344184,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "vpn460820669.ovpn",
+          "available": true
+        }
+      ],
+      "score": 800390,
+      "ovpn_file": "vpn460820669.ovpn",
+      "num_sessions": 15,
+      "uptime": "156651577"
+    },
+    {
+      "id": 16,
+      "name": "Thailand Server 16",
+      "host": "idcrmn2",
+      "ip": "180.183.154.31",
+      "country": "Thailand",
+      "country_code": "TH",
+      "type": "openvpn",
+      "status": "online",
+      "ping": 4,
+      "download_speed": 466453201,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "tcp443",
+          "transport": "tcp",
+          "port": 443,
+          "file": "idcrmn2.ovpn",
+          "available": true
+        }
+      ],
+      "score": 647945,
+      "ovpn_file": "idcrmn2.ovpn",
+      "num_sessions": 40,
+      "uptime": "1000"
+    },
+    {
+      "id": 17,
+      "name": "Netherlands Server 17",
+      "host": "vpn420429830",
+      "ip": "91.208.52.30",
+      "country": "Netherlands",
+      "country_code": "NL",
+      "type": "openvpn",
+      "status": "online",
+      "ping": 1,
+      "download_speed": 71141211,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "vpn420429830.ovpn",
+          "available": true
+        }
+      ],
+      "score": 604259,
+      "ovpn_file": "vpn420429830.ovpn",
+      "num_sessions": 11,
+      "uptime": "1000"
+    },
+    {
+      "id": 18,
+      "name": "Mexico Server 18",
+      "host": "vpn841003782",
+      "ip": "189.203.34.215",
+      "country": "Mexico",
+      "country_code": "MX",
+      "type": "openvpn",
+      "status": "online",
+      "ping": 5,
+      "download_speed": 93801768,
+      "upload_speed": null,
+      "protocols": [
+        {
+          "id": "udp443",
+          "transport": "udp",
+          "port": 443,
+          "file": "vpn841003782.ovpn",
+          "available": true
+        }
+      ],
+      "score": 576560,
+      "ovpn_file": "vpn841003782.ovpn",
+      "num_sessions": 17,
+      "uptime": "1000"
     }
   ]
 }
